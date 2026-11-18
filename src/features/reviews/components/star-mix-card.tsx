@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { RAVENO_DATA } from "../data";
+import { REVIEW_DEMO_DATA } from "../data";
 import { ThumbsUp, ArrowUpRight } from "lucide-react";
 
 export function StarMixCard() {
@@ -14,7 +14,7 @@ export function StarMixCard() {
             Distribución de estrellas
           </CardTitle>
           <CardDescription className="text-xs text-muted-foreground mt-0.5 font-medium">
-            {RAVENO_DATA.totalPublicReviews} opiniones públicas
+            {REVIEW_DEMO_DATA.totalPublicReviews} opiniones públicas
           </CardDescription>
         </div>
         <div className="rounded-full bg-muted/50 p-1.5 text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
@@ -25,7 +25,7 @@ export function StarMixCard() {
       <CardContent className="space-y-4 pt-1 px-6 pb-6">
         {/* Barras de distribución */}
         <div className="space-y-2.5">
-          {RAVENO_DATA.starMix.map((item) => (
+          {REVIEW_DEMO_DATA.starMix.map((item) => (
             <div key={item.stars} className="flex items-center gap-3 text-xs">
               <span className="w-6 text-muted-foreground font-mono font-semibold text-[11px]">
                 {item.stars} ★
@@ -49,7 +49,7 @@ export function StarMixCard() {
             <ThumbsUp className="h-3.5 w-3.5" />
           </div>
           <span className="text-[11px] font-medium leading-snug">
-            {RAVENO_DATA.bookingRate}
+            {REVIEW_DEMO_DATA.bookingRate}
           </span>
         </div>
       </CardContent>

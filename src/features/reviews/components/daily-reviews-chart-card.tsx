@@ -1,16 +1,12 @@
 "use client";
 
-import * as React from "react";
+import { useHydrated } from "@/lib/use-hydrated";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { RAVENO_DATA } from "../data";
+import { REVIEW_DEMO_DATA } from "../data";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from "recharts";
 
 export function DailyReviewsChartCard() {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useHydrated();
 
   return (
     <Card className="border-border/60 bg-card/95 shadow-sm rounded-xl overflow-hidden h-full flex flex-col justify-between">
@@ -28,7 +24,7 @@ export function DailyReviewsChartCard() {
           {mounted ? (
             <ResponsiveContainer width="100%" height="100%" minWidth={100} minHeight={150} debounce={50}>
               <BarChart
-                data={RAVENO_DATA.dailyReviews14Days}
+                data={REVIEW_DEMO_DATA.dailyReviews14Days}
                 margin={{ top: 10, right: 10, left: -25, bottom: 0 }}
               >
                 <XAxis
@@ -62,7 +58,7 @@ export function DailyReviewsChartCard() {
                   }}
                 />
                 <Bar dataKey="count" radius={[6, 6, 0, 0]}>
-                  {RAVENO_DATA.dailyReviews14Days.map((entry, index) => (
+                  {REVIEW_DEMO_DATA.dailyReviews14Days.map((entry, index) => (
                     <Cell
                       key={`bar-${index}`}
                       fill={entry.isToday ? "var(--primary)" : "var(--border)"}

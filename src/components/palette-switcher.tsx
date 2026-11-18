@@ -1,52 +1,36 @@
 "use client";
 
-import * as React from "react";
-import { usePalette, Palette } from "./palette-provider";
-import { Button } from "@/components/ui/button";
+import { Palette as PaletteIcon } from "lucide-react";
+import { usePalette } from "./palette-provider";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Palette as PaletteIcon, Check } from "lucide-react";
 
 export function PaletteSwitcher() {
   const { palette, setPalette, palettes } = usePalette();
-
-  const current = palettes.find((p) => p.id === palette) || palettes[0];
+  const current = palettes.find(({ id }) => id === palette) ?? palettes[0];
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="inline-flex items-center gap-2 h-8 rounded-md border border-border/70 bg-card px-2.5 text-xs font-medium shadow-xs hover:bg-accent hover:text-accent-foreground cursor-pointer">
-        <span
-          className="h-3 w-3 rounded-full border border-black/10 shadow-xs"
-          style={{ backgroundColor: current.color }}
-        />
-        <span className="hidden sm:inline">{current.name.split(" ")[0]}</span>
-        <PaletteIcon className="h-3.5 w-3.5 text-muted-foreground" />
+      <DropdownMenuTrigger aria-label="Paleta de colores" title={current.name} className="grid size-8 place-items-center rounded-full border bg-card shadow-xs hover:bg-accent">
+        <PaletteIcon className="size-3.5 text-muted-foreground" aria-hidden />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-52">
-        <DropdownMenuLabel className="text-xs text-muted-foreground">Paleta de colores</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {palettes.map((p) => (
-          <DropdownMenuItem
-            key={p.id}
-            onClick={() => setPalette(p.id)}
-            className="flex items-center justify-between py-2 text-xs cursor-pointer"
-          >
-            <div className="flex items-center gap-2.5">
-              <span
-                className="h-3.5 w-3.5 rounded-full border border-black/10 shadow-xs"
-                style={{ backgroundColor: p.color }}
-              />
-              <span className="font-medium">{p.name}</span>
-            </div>
-            {palette === p.id && <Check className="h-3.5 w-3.5 text-primary" />}
-          </DropdownMenuItem>
-        ))}
+      <DropdownMenuContent align="end" aria-label="Paleta de colores" className="w-40">
+        <DropdownMenuRadioGroup value={palette} onValueChange={(value) => {
+          const selected = palettes.find(({ id }) => id === value);
+          if (selected) setPalette(selected.id);
+        }}>
+          {palettes.map(({ id, name, color }) => (
+            <DropdownMenuRadioItem key={id} value={id} className="gap-2 py-2 text-xs">
+              <span aria-hidden className="size-3 rounded-full border border-black/10" style={{ backgroundColor: color }} />
+              {name}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,25 +1,36 @@
 "use client";
 
-import * as React from "react";
-import { Sidebar } from "./sidebar";
+import { useState, type ReactNode } from "react";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Header } from "./header";
+import { Sidebar } from "./sidebar";
 
-interface DashboardShellProps {
-  children: React.ReactNode;
-}
+export function DashboardShell({ children }: { children: ReactNode }) {
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-export function DashboardShell({ children }: DashboardShellProps) {
-  const [collapsed, setCollapsed] = React.useState(false);
+  const mobileNavigation = (
+    <Dialog open={mobileOpen} onOpenChange={setMobileOpen}>
+      <DialogTrigger render={<Button variant="ghost" size="icon" className="shrink-0 md:hidden" aria-label="Abrir navegación" />}>
+        <Menu aria-hidden />
+      </DialogTrigger>
+      <DialogContent className="inset-y-0 left-0 h-dvh w-64 max-w-[85vw] translate-x-0 translate-y-0 overflow-hidden rounded-none p-0 text-sidebar-foreground md:hidden [&_aside]:w-full [&_button]:hover:bg-sidebar-accent">
+        <DialogTitle className="sr-only">Navegación principal</DialogTitle>
+        <Sidebar onNavigate={() => setMobileOpen(false)} />
+      </DialogContent>
+    </Dialog>
+  );
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
-      {/* Sidebar fijo/responsivo */}
-      <Sidebar collapsed={collapsed} />
-
-      {/* Área Principal de Contenido */}
-      <div className="flex flex-1 flex-col overflow-hidden min-w-0">
-        <Header onToggleSidebar={() => setCollapsed((prev) => !prev)} />
-        <main className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6">
+    <div className="dashboard-frame">
+      <div className="desktop-rail">
+        <Sidebar collapsed={collapsed} />
+      </div>
+      <div className="dashboard-workspace">
+        <Header collapsed={collapsed} onToggleSidebar={() => setCollapsed((value) => !value)} mobileNavigation={mobileNavigation} />
+        <main className="dashboard-main space-y-5">
           {children}
         </main>
       </div>

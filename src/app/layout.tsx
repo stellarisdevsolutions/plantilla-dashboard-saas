@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { DM_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "./projects.css";
+import { dashboardConfig } from "@/config/dashboard";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PaletteProvider } from "@/components/palette-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
+const dashboardSans = DM_Sans({
+  variable: "--font-dashboard-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -18,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Plantilla de Dashboard | Morlo & Raveno UI",
-  description: "Plantilla de dashboard profesional y modular para proyectos Next.js",
+  title: dashboardConfig.name,
+  description: dashboardConfig.description,
   other: {
     "color-scheme": "dark light",
   },
@@ -33,14 +34,14 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      data-palette="emerald"
+      data-palette={dashboardConfig.defaultPalette}
       suppressHydrationWarning
-      className={`${plusJakartaSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${dashboardSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme={dashboardConfig.defaultTheme}
           enableSystem={false}
           disableTransitionOnChange
         >

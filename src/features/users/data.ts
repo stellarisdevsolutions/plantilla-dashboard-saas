@@ -12,7 +12,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-001",
     name: "Valentina Vega",
-    email: "valentina@vortexai.com",
+    email: "valentina@example.com",
     role: "Administrador",
     status: "Activo",
     spent: 42500,
@@ -21,7 +21,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-002",
     name: "Ignacio Morales",
-    email: "ignacio@solaria.io",
+    email: "ignacio@example.com",
     role: "Editor",
     status: "Activo",
     spent: 18200,
@@ -30,7 +30,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-003",
     name: "Camila Rojas",
-    email: "camila@bioquim.org",
+    email: "camila@example.com",
     role: "Analista",
     status: "Pendiente",
     spent: 9400,
@@ -39,7 +39,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-004",
     name: "Rodrigo Benítez",
-    email: "rodrigo@apexcorp.de",
+    email: "rodrigo@example.com",
     role: "Cliente",
     status: "Activo",
     spent: 85000,
@@ -48,7 +48,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-005",
     name: "Lucía Fernández",
-    email: "lucia@cloudwave.es",
+    email: "lucia@example.com",
     role: "Editor",
     status: "Inactivo",
     spent: 3100,
@@ -57,7 +57,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-006",
     name: "Tomás Navarro",
-    email: "tomas@quantumsec.co",
+    email: "tomas@example.com",
     role: "Cliente",
     status: "Activo",
     spent: 67200,
@@ -66,7 +66,7 @@ export const CLIENT_ACCOUNTS: ClientAccount[] = [
   {
     id: "USR-007",
     name: "Mariana Delgado",
-    email: "mariana@novahealth.com",
+    email: "mariana@example.com",
     role: "Analista",
     status: "Activo",
     spent: 14500,

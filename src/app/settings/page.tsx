@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { PageHeading } from "@/components/layout/page-heading";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -8,9 +9,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { demoUser } from "@/config/dashboard";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   User,
   Bell,
@@ -20,7 +21,6 @@ import {
   Save,
   Check,
   RefreshCw,
-  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -29,12 +29,7 @@ export default function SettingsPage() {
   const [saving, setSaving] = React.useState(false);
 
   // Estados de formulario
-  const [profile, setProfile] = React.useState({
-    name: "Dara Whitfield",
-    email: "dara.whitfield@morlo.studio",
-    role: "Directora de Producto & Lead Designer",
-    bio: "Diseñadora de interfaces y estratega de producto especializada en sistemas de diseño y analíticas SaaS.",
-  });
+  const [profile, setProfile] = React.useState(demoUser);
 
   // Estados de notificaciones
   const [notifications, setNotifications] = React.useState({
@@ -45,7 +40,7 @@ export default function SettingsPage() {
   });
 
   // Clave API de demostración
-  const apiKey = "pk_live_51Mza89LKJ091xYZa089182910248";
+  const apiKey = "demo_api_key_example";
 
   const handleCopyApiKey = () => {
     navigator.clipboard.writeText(apiKey);
@@ -62,34 +57,14 @@ export default function SettingsPage() {
     setTimeout(() => {
       setSaving(false);
       toast.success("Perfil actualizado", {
-        description: "Los cambios se han guardado exitosamente en tu cuenta.",
+        description: "Cambios aplicados para esta demostración.",
       });
     }, 900);
   };
 
   return (
     <DashboardShell>
-      {/* Banner de Cabecera SaaS */}
-      <div className="relative overflow-hidden rounded-xl border border-border/80 bg-gradient-to-r from-card via-card to-emerald-50/50 dark:to-emerald-950/20 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[11px] font-semibold tracking-wide border border-primary/20">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Configuración del Sistema · Módulo 5
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
-            Ajustes & Configuración de Cuenta
-          </h1>
-          <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-            Gestiona la información de perfil, preferencias de notificación y credenciales de API para tu aplicación.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Badge className="bg-primary/10 text-primary border-primary/25 text-xs py-1 px-3">
-            Plan Enterprise Activo
-          </Badge>
-        </div>
-      </div>
+      <PageHeading title="Formularios y ajustes" description="Ejemplos de edición de perfil, preferencias y credenciales." />
 
       {/* Pestañas de Ajustes */}
       <Tabs defaultValue="profile" className="space-y-6">
@@ -127,8 +102,7 @@ export default function SettingsPage() {
                 {/* Avatar y cambio de imagen */}
                 <div className="flex items-center gap-4">
                   <Avatar className="h-16 w-16 ring-2 ring-border/80">
-                    <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&h=120&fit=crop&crop=faces" alt="Dara Whitfield" />
-                    <AvatarFallback className="bg-primary text-primary-foreground font-bold">DW</AvatarFallback>
+                    <AvatarFallback className="bg-primary text-primary-foreground font-bold">{demoUser.initials}</AvatarFallback>
                   </Avatar>
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">

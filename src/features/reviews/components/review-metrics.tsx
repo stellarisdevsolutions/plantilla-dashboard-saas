@@ -2,19 +2,19 @@
 
 import * as React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { RAVENO_DATA } from "../data";
+import { REVIEW_DEMO_DATA } from "../data";
 import { Star, Award, ThumbsDown, Camera, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface RavenoKpiCardsProps {
+interface ReviewMetricsProps {
   selectedId?: string;
   onSelect?: (id: string) => void;
 }
 
-export function RavenoKpiCards({
+export function ReviewMetrics({
   selectedId = "new-reviews",
   onSelect,
-}: RavenoKpiCardsProps) {
+}: ReviewMetricsProps) {
   const getIcon = (id: string) => {
     switch (id) {
       case "new-reviews":
@@ -30,7 +30,7 @@ export function RavenoKpiCards({
 
   return (
     <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-      {RAVENO_DATA.kpiCards.map((card) => {
+      {REVIEW_DEMO_DATA.kpiCards.map((card) => {
         const isSelected = selectedId === card.id;
 
         return (

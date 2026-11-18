@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { RAVENO_DATA } from "../data";
+import { REVIEW_DEMO_DATA } from "../data";
 import { Star, MessageSquare, ArrowUpRight } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 export function NeedsReplyCard() {
-  const [selectedReview, setSelectedReview] = React.useState<typeof RAVENO_DATA.needsReplyReviews[0] | null>(null);
+  const [selectedReview, setSelectedReview] = React.useState<typeof REVIEW_DEMO_DATA.needsReplyReviews[0] | null>(null);
   const [replyText, setReplyText] = React.useState("");
 
   const handleSendReply = () => {
@@ -47,7 +47,7 @@ export function NeedsReplyCard() {
           </span>
         </CardHeader>
         <CardContent className="space-y-3 pt-1 px-6 pb-6">
-          {RAVENO_DATA.needsReplyReviews.map((rev) => (
+          {REVIEW_DEMO_DATA.needsReplyReviews.map((rev) => (
             <div
               key={rev.id}
               className="flex items-center justify-between p-3.5 rounded-2xl border border-border/50 bg-muted/20 hover:bg-muted/40 transition-colors"

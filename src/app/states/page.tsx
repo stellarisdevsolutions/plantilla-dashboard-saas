@@ -2,13 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { PageHeading } from "@/components/layout/page-heading";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import {
   Inbox,
-  AlertTriangle,
   FileQuestion,
   Lock,
   RefreshCw,
@@ -16,7 +16,6 @@ import {
   ArrowLeft,
   ServerCrash,
   WifiOff,
-  CheckCircle2,
   ShieldAlert,
 } from "lucide-react";
 
@@ -35,18 +34,7 @@ export default function StatesPage() {
 
   return (
     <DashboardShell>
-      {/* Cabecera del Módulo */}
-      <div className="space-y-1">
-        <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[11px] font-semibold tracking-wide border border-primary/20">
-          Módulo 5 · Autenticación & Estados
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground">
-          Estados del Sistema & Páginas de Error
-        </h1>
-        <p className="text-xs sm:text-sm text-muted-foreground">
-          Plantillas visuales reutilizables para estados vacíos (empty states), errores 404, caídas de servidor 500 y permisos denegados.
-        </p>
-      </div>
+      <PageHeading title="Estados del sistema" description="Ejemplos reutilizables para estados vacíos, errores y pérdida de conexión." />
 
       {/* Selector de Pestañas de Estados */}
       <div className="flex flex-wrap gap-2 border-b border-border pb-3">
@@ -82,7 +70,7 @@ export default function StatesPage() {
         {activeTab === "empty" && (
           <Card className="border-border/80 bg-card/95 shadow-sm rounded-xl overflow-hidden p-8 sm:p-16 text-center">
             <div className="mx-auto max-w-md space-y-5">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 shadow-inner">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-accent text-accent-foreground shadow-inner">
                 <Inbox className="h-10 w-10 stroke-[1.5]" />
               </div>
 
@@ -164,7 +152,7 @@ export default function StatesPage() {
                   Error interno del servidor
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  Ocurrió una excepción inesperada al procesar la solicitud en el endpoint. Los ingenieros de Morlo Studio han sido notificados.
+                  Ocurrió un error al procesar la solicitud. Inténtalo de nuevo en unos minutos.
                 </p>
               </div>
 

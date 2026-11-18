@@ -1,50 +1,33 @@
-# Plantilla Dashboard SaaS - Morlo UI (Next.js 16 + Tailwind CSS v4)
+# Plantilla de panel administrativo SaaS
 
-Plantilla de dashboard profesional, moderna y 100% modular basada en una regla cromática **60-30-10** (Lienzo neutro, Verde Nórdico `#0F2A1D` y Acentos Esmeralda `#10B981`), construida con Next.js 16 (Turbopack), Tailwind CSS v4 y Base UI / Radix primitives.
+Base reutilizable en español con Next.js, Tailwind CSS y componentes editables. Incluye temas claro y oscuro y ejemplos con datos locales.
 
----
+## Empezar
 
-## 🏛️ Estructura de Módulos
-
-```text
-Plantilla Dashboard SaaS
-├── 1. Módulo Analítico & KPIs
-│   ├── Resumen General (Vista: /)
-│   └── Mesa de Reseñas & Reputación (Vista: /reviews · 16 reseñas)
-├── 2. Módulo de Tablas & Data Grids CRUD
-│   └── Gestor de Tareas Interactivo (Vista: /table · 9 tareas)
-├── 3. Módulo de Componentes & UI Kit
-│   └── Catálogo UI, Modales & Toasts (Vista: /components-showcase)
-├── 4. Módulo de Formularios & Ajustes
-│   └── Ajustes de Cuenta & Perfil (Vista: /settings)
-└── 5. Módulo de Autenticación & Estados
-    ├── Iniciar Sesión con Autocompletado Demo (Vista: /login)
-    ├── Estados del Sistema: Empty, 500, 403, Offline (Vista: /states)
-    └── Error 404 Oficial de Next.js (Vista: /_not-found)
-```
-
----
-
-## 🎨 Paleta Cromática 60-30-10
-
-* **60% Dominante:** `#F4F7F6` en lienzo/fondo y `#FFFFFF` en tarjetas y cabecera en modo claro.
-* **30% Secundario:** `#0F2A1D` (Verde Bosque Nórdico Profundo) en el sidebar vertical permanente.
-* **10% Acento:** `#10B981` (Esmeralda / Menta vibrante) en badges, indicadores activos, CTAs y métricas clave.
-
----
-
-## 🚀 Inicio Rápido
+Usa Node.js 24 LTS y la versión de pnpm fijada en `package.json`.
 
 ```bash
-# Instalar dependencias
-pnpm install
-
-# Iniciar servidor de desarrollo
+pnpm install --frozen-lockfile
 pnpm dev
-
-# Compilar para producción (0 errores TypeScript & Turbopack)
-pnpm build
 ```
 
-Abre **[http://localhost:3000](http://localhost:3000)** en tu navegador.
-Para detalles técnicos adicionales de la arquitectura y componentes, consulta **[STACK.md](STACK.md)**.
+Abre el puerto 3000 en tu navegador. Ejecuta `pnpm lint` para revisar el código y `pnpm build` para comprobar la compilación de producción y los tipos.
+
+## Personalizar después de clonar
+
+1. Cambia el nombre, las iniciales, el tema, la paleta inicial y el usuario de ejemplo en `src/config/dashboard.ts`.
+2. Ajusta las opciones del menú en `src/config/navigation.ts`. Las páginas disponibles están en `src/app/`.
+3. Edita los colores en `src/app/globals.css`. Mantén el fondo y las tarjetas como superficies dominantes, usa el tono secundario para la navegación y reserva el acento para acciones, selecciones y gráficos. El 60/30/10 es una guía de composición.
+4. Reemplaza los datos de ejemplo en `src/features/` y conecta los formularios a los servicios de tu proyecto. El acceso, las operaciones de usuarios y la configuración que trae la plantilla son demostraciones locales.
+
+## Módulos
+
+| Módulo | Ruta | Incluye |
+| --- | --- | --- |
+| Analítica y KPIs | `/` | Indicadores y gráficos, con un ejemplo de analítica de reseñas en `/reviews` |
+| Tablas y grids | `/table` | Tabla de usuarios con búsqueda, filtros, paginación y operaciones en memoria |
+| Componentes UI y kit | `/components-showcase` | Controles, diálogos, notificaciones y estados del sistema en `/states` |
+| Formularios y ajustes | `/settings` | Perfil, notificaciones y credenciales de ejemplo |
+| Autenticación | `/login` | Formulario de inicio de sesión y acceso simulado |
+
+Consulta [STACK.md](STACK.md) para conocer las dependencias y la estructura.

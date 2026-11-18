@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-dashboard-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-heading: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-dashboard-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* 30% Secundario: Sidebar y superficies de estructura */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -75,7 +75,7 @@
   --radius: 0.75rem;
 
   /* 60% Dominante (Modo Claro) */
-  --background: #f6f8fa;
+  --background: #f7f6f2;
   --foreground: #0f172a;
   --card: #ffffff;
   --card-foreground: #0f172a;
@@ -87,15 +87,15 @@
   --secondary-foreground: #1e293b;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --border: #e2e8f0;
+  --border: #e4e5df;
   --input: #e2e8f0;
 
   /* 10% Acento por defecto (Esmeralda) */
-  --primary: #059669;
+  --primary: #047857;
   --primary-foreground: #ffffff;
   --accent: #ecfdf5;
   --accent-foreground: #065f46;
-  --ring: #059669;
+  --ring: #047857;
 
   /* Sidebar 30% (acompaña a la paleta Esmeralda) */
   --sidebar: #0d231a;
@@ -185,55 +185,291 @@
    PALETAS SELECCIONABLES (Actualizan 30% Sidebar/Secundario + 10% Acento)
    ========================================================================== */
 
-/* 1. EMERALD (Nordic SaaS) */
-[data-palette="emerald"] {
-  --primary: #059669;
+/* Cobalto */
+:root[data-palette="cobalt"] {
+  --radius: 0.55rem;
+  --background: #f0f3f9;
+  --foreground: #14213a;
+  --card: #ffffff;
+  --card-foreground: #14213a;
+  --popover: #ffffff;
+  --popover-foreground: #14213a;
+  --secondary: #e6edf9;
+  --secondary-foreground: #25395b;
+  --muted: #edf1f8;
+  --muted-foreground: #4d5f7b;
+  --border: #dce4f1;
+  --input: #d2dced;
+  --primary: #214db8;
   --primary-foreground: #ffffff;
-  --accent: #ecfdf5;
-  --accent-foreground: #065f46;
-  --ring: #059669;
-  --sidebar: #0d231a;
-  --sidebar-foreground: #f0fdf4;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #022c22;
-  --sidebar-accent: #173a2c;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-ring: #10b981;
-  --chart-1: #059669;
-  --chart-2: #34d399;
-  --chart-3: #0f766e;
-  --chart-4: #64748b;
-}
-.dark[data-palette="emerald"] {
-  --primary: #10b981;
-  --primary-foreground: #022c22;
-  --accent: #122a22;
-  --accent-foreground: #6ee7b7;
-  --ring: #10b981;
-  --sidebar: #0d1512;
-  --sidebar-foreground: #ecfdf5;
-  --sidebar-primary: #10b981;
-  --sidebar-primary-foreground: #022c22;
-  --sidebar-accent: #162922;
-  --sidebar-accent-foreground: #ffffff;
-  --chart-1: #10b981;
-  --chart-2: #34d399;
-  --chart-3: #059669;
-  --chart-4: #64748b;
+  --accent: #e6eeff;
+  --accent-foreground: #234ca8;
+  --ring: #214db8;
+  --sidebar: #e8eef9;
+  --sidebar-foreground: #233655;
+  --sidebar-primary: #d8e5ff;
+  --sidebar-primary-foreground: #173c8f;
+  --sidebar-accent: #dfe8f9;
+  --sidebar-accent-foreground: #1e3e76;
+  --sidebar-border: #d9e2f1;
+  --sidebar-ring: #315bd0;
+  --chart-1: #386be5;
+  --chart-2: #678ee9;
+  --chart-3: #087b83;
+  --chart-4: #72829e;
+  --chart-5: #cbd7ef;
 }
 
-/* 2. INDIGO (Linear / Stripe SaaS) */
+:root.dark[data-palette="cobalt"] {
+  --background: #101522;
+  --foreground: #f0f4ff;
+  --card: #161e2f;
+  --card-foreground: #f0f4ff;
+  --popover: #1b253a;
+  --popover-foreground: #f0f4ff;
+  --secondary: #202b42;
+  --secondary-foreground: #ccd8ee;
+  --muted: #1c273d;
+  --muted-foreground: #a3b2ce;
+  --border: #2b3852;
+  --input: #3c4c6b;
+  --primary: #a4bbff;
+  --primary-foreground: #111f42;
+  --accent: #253657;
+  --accent-foreground: #c2d1ff;
+  --ring: #a4bbff;
+  --sidebar: #111827;
+  --sidebar-foreground: #d9e3f9;
+  --sidebar-primary: #223557;
+  --sidebar-primary-foreground: #e2ebff;
+  --sidebar-accent: #1c2941;
+  --sidebar-accent-foreground: #f0f4ff;
+  --sidebar-border: #26344f;
+  --sidebar-ring: #a4bbff;
+  --chart-1: #86a6ff;
+  --chart-2: #5379e2;
+  --chart-3: #63d6db;
+  --chart-4: #7182a4;
+  --chart-5: #354667;
+}
+
+[data-palette="cobalt"] .module-link {
+  border-radius: var(--radius);
+}
+
+[data-palette="cobalt"] .module-link[aria-current] {
+  box-shadow: inset 2px 0 var(--chart-1);
+}
+
+/* Naranja */
+:root[data-palette="orange"] {
+  --background: #f4f4f4;
+  --foreground: #201f1e;
+  --card: #ffffff;
+  --card-foreground: #201f1e;
+  --popover: #ffffff;
+  --popover-foreground: #201f1e;
+  --secondary: #efefed;
+  --secondary-foreground: #333230;
+  --muted: #f5f5f4;
+  --muted-foreground: #666461;
+  --border: #e7e6e4;
+  --input: #deddda;
+
+  --primary: #b43a12;
+  --primary-foreground: #ffffff;
+  --accent: #fff1e9;
+  --accent-foreground: #94340e;
+  --ring: #b43a12;
+
+  --sidebar: #fafafa;
+  --sidebar-foreground: #242423;
+  --sidebar-primary: #242423;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ececea;
+  --sidebar-accent-foreground: #242423;
+  --sidebar-border: #e7e6e4;
+  --sidebar-ring: #b43a12;
+
+  --chart-1: #e55d2e;
+  --chart-2: #f29568;
+  --chart-3: #302f2d;
+  --chart-4: #868380;
+  --chart-5: #e1dedb;
+}
+
+:root.dark[data-palette="orange"] {
+  --background: #171717;
+  --foreground: #f7f6f4;
+  --card: #211f1e;
+  --card-foreground: #f7f6f4;
+  --popover: #282523;
+  --popover-foreground: #f7f6f4;
+  --secondary: #302d2a;
+  --secondary-foreground: #f1edeb;
+  --muted: #292726;
+  --muted-foreground: #aaa49e;
+  --border: #383431;
+  --input: #524a45;
+
+  --primary: #ff996c;
+  --primary-foreground: #31170e;
+  --accent: #3b2820;
+  --accent-foreground: #ffb28d;
+  --ring: #ff996c;
+
+  --sidebar: #1c1a19;
+  --sidebar-foreground: #f7f6f4;
+  --sidebar-primary: #f2efed;
+  --sidebar-primary-foreground: #242423;
+  --sidebar-accent: #302d2a;
+  --sidebar-accent-foreground: #f7f6f4;
+  --sidebar-border: #383431;
+  --sidebar-ring: #ff996c;
+
+  --chart-1: #ff996c;
+  --chart-2: #d67a55;
+  --chart-3: #ded8d2;
+  --chart-4: #85807b;
+  --chart-5: #3d3631;
+}
+
+.category-meter::-webkit-meter-bar {
+  background: var(--muted);
+  border: 0;
+  border-radius: 999px;
+}
+
+.category-meter::-webkit-meter-optimum-value {
+  background: var(--chart-1);
+  border-radius: 999px;
+}
+
+.category-meter::-moz-meter-bar {
+  background: var(--chart-1);
+  border-radius: 999px;
+}
+
+/* Coral */
+[data-palette="coral"] {
+  --primary: #b7432d;
+  --primary-foreground: #ffffff;
+  --accent: #fff0e8;
+  --accent-foreground: #8b3222;
+  --ring: #b7432d;
+  --sidebar: #123337;
+  --sidebar-foreground: #f2faf6;
+  --sidebar-primary: #ffc3a8;
+  --sidebar-primary-foreground: #352017;
+  --sidebar-accent: #25494b;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-ring: #ffc3a8;
+  --chart-1: #b7432d;
+  --chart-2: #e58361;
+  --chart-3: #286667;
+  --chart-4: #667b7a;
+  --chart-5: #dce7e2;
+}
+
+.dark[data-palette="coral"] {
+  --primary: #ffa384;
+  --primary-foreground: #371913;
+  --accent: #39241f;
+  --accent-foreground: #ffba9d;
+  --ring: #ffa384;
+  --sidebar: #10282c;
+  --sidebar-foreground: #f1f8f5;
+  --sidebar-primary: #ffa384;
+  --sidebar-primary-foreground: #371913;
+  --sidebar-accent: #214145;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-ring: #ffa384;
+  --chart-1: #ffa384;
+  --chart-2: #d47b64;
+  --chart-3: #63aaa7;
+  --chart-4: #879d9a;
+  --chart-5: #2d4241;
+}
+
+/* Esmeralda */
+:root[data-palette="emerald"] {
+  --background: #f6f6f6;
+  --foreground: #141916;
+  --card: #ffffff;
+  --card-foreground: #141916;
+  --popover: #ffffff;
+  --popover-foreground: #141916;
+  --secondary: #eaf1ed;
+  --secondary-foreground: #263a31;
+  --muted: #f5f5f5;
+  --muted-foreground: #606b64;
+  --border: #dfe7e2;
+  --input: #d6e1da;
+  --primary: #186b45;
+  --primary-foreground: #ffffff;
+  --accent: #e8f6ee;
+  --accent-foreground: #0b583f;
+  --ring: #186b45;
+  --sidebar: #f2f5f2;
+  --sidebar-foreground: #45534a;
+  --sidebar-primary: #e5eee7;
+  --sidebar-primary-foreground: #124436;
+  --sidebar-accent: #e7ece8;
+  --sidebar-accent-foreground: #1e402c;
+  --sidebar-border: #e1e7e3;
+  --sidebar-ring: #26744c;
+  --chart-1: #186b45;
+  --chart-2: #67b99a;
+  --chart-3: #175b4b;
+  --chart-4: #68817a;
+  --chart-5: #ceded6;
+}
+
+:root.dark[data-palette="emerald"] {
+  --background: #111815;
+  --foreground: #eff7f2;
+  --card: #19231e;
+  --card-foreground: #eff7f2;
+  --popover: #202c26;
+  --popover-foreground: #eff7f2;
+  --secondary: #24342b;
+  --secondary-foreground: #d9e9e0;
+  --muted: #202e26;
+  --muted-foreground: #a4bbad;
+  --border: #30443a;
+  --input: #3d5347;
+  --primary: #79d8ae;
+  --primary-foreground: #102e22;
+  --accent: #234638;
+  --accent-foreground: #a3e7c6;
+  --ring: #79d8ae;
+  --sidebar: #123d33;
+  --sidebar-foreground: #ecf7f0;
+  --sidebar-primary: #a4e7c4;
+  --sidebar-primary-foreground: #113b2e;
+  --sidebar-accent: #205345;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #285449;
+  --sidebar-ring: #a4e7c4;
+  --chart-1: #79d8ae;
+  --chart-2: #4da88b;
+  --chart-3: #b5e9ce;
+  --chart-4: #718e81;
+  --chart-5: #3c574b;
+}
+
+/* Índigo */
 [data-palette="indigo"] {
   --primary: #4f46e5;
   --primary-foreground: #ffffff;
   --accent: #eef2ff;
   --accent-foreground: #3730a3;
   --ring: #4f46e5;
-  --sidebar: #13162b;
+  --sidebar: #171b31;
   --sidebar-foreground: #eef2ff;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #21264a;
+  --sidebar-primary: #a5b4fc;
+  --sidebar-primary-foreground: #171b31;
+  --sidebar-accent: #292e4c;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-ring: #6366f1;
   --chart-1: #4f46e5;
@@ -242,15 +478,15 @@
   --chart-4: #64748b;
 }
 .dark[data-palette="indigo"] {
-  --primary: #6366f1;
-  --primary-foreground: #ffffff;
+  --primary: #a5b4fc;
+  --primary-foreground: #171b31;
   --accent: #1c1e3b;
   --accent-foreground: #c7d2fe;
   --ring: #6366f1;
   --sidebar: #0f111f;
   --sidebar-foreground: #eef2ff;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary: #a5b4fc;
+  --sidebar-primary-foreground: #171b31;
   --sidebar-accent: #1d213d;
   --sidebar-accent-foreground: #ffffff;
   --chart-1: #6366f1;
@@ -259,7 +495,7 @@
   --chart-4: #64748b;
 }
 
-/* 3. VIOLET (AI Modern) */
+/* Violeta */
 [data-palette="violet"] {
   --primary: #7c3aed;
   --primary-foreground: #ffffff;
@@ -268,8 +504,8 @@
   --ring: #7c3aed;
   --sidebar: #191128;
   --sidebar-foreground: #f5f3ff;
-  --sidebar-primary: #8b5cf6;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary: #c4b5fd;
+  --sidebar-primary-foreground: #221237;
   --sidebar-accent: #2a1d42;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-ring: #8b5cf6;
@@ -279,15 +515,15 @@
   --chart-4: #64748b;
 }
 .dark[data-palette="violet"] {
-  --primary: #8b5cf6;
-  --primary-foreground: #ffffff;
+  --primary: #c4b5fd;
+  --primary-foreground: #221237;
   --accent: #24173d;
   --accent-foreground: #ddd6fe;
   --ring: #8b5cf6;
   --sidebar: #130e1c;
   --sidebar-foreground: #f5f3ff;
-  --sidebar-primary: #8b5cf6;
-  --sidebar-primary-foreground: #ffffff;
+  --sidebar-primary: #c4b5fd;
+  --sidebar-primary-foreground: #221237;
   --sidebar-accent: #241938;
   --sidebar-accent-foreground: #ffffff;
   --chart-1: #8b5cf6;
@@ -296,13 +532,13 @@
   --chart-4: #64748b;
 }
 
-/* 4. AMBER (Warm Studio) */
+/* Ámbar */
 [data-palette="amber"] {
-  --primary: #d97706;
+  --primary: #b45309;
   --primary-foreground: #ffffff;
   --accent: #fffbeb;
   --accent-foreground: #92400e;
-  --ring: #d97706;
+  --ring: #b45309;
   --sidebar: #1c1611;
   --sidebar-foreground: #fffbeb;
   --sidebar-primary: #f59e0b;
@@ -333,7 +569,7 @@
   --chart-4: #78716c;
 }
 
-/* 5. ZINC (Monocromo Vercel / Raveno) */
+/* Zinc */
 [data-palette="zinc"] {
   --primary: #18181b;
   --primary-foreground: #ffffff;
@@ -376,7 +612,7 @@
   }
   html,
   body {
-    font-family: var(--font-plus-jakarta-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-dashboard-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;

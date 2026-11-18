@@ -1,6 +1,9 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { PageHeading } from "@/components/layout/page-heading";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,7 +40,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function ComponentsShowcasePage() {
   const [loadingButton, setLoadingButton] = React.useState(false);
   const [switch1, setSwitch1] = React.useState(true);
-  const [switch2, setSwitch2] = React.useState(false);
   const [formDialogOpen, setFormDialogOpen] = React.useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false);
 
@@ -67,19 +69,12 @@ export default function ComponentsShowcasePage() {
 
   return (
     <DashboardShell>
-      <div className="flex flex-col gap-1 pb-1">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Catálogo de Componentes & UI Kit
-        </h1>
-        <p className="text-xs text-muted-foreground">
-          Bloques listos para copiar y pegar en tus vistas y conectar con el backend
-        </p>
-      </div>
+      <PageHeading title="Componentes UI y kit" description="Botones, controles, diálogos y notificaciones listos para reutilizar." actions={<Link href="/states" className={buttonVariants({ variant: "outline" })}>Ver estados del sistema</Link>} />
 
       {/* 1. INPUTS Y FORMULARIOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">1. Inputs & Controles de Formulario</CardTitle>
+          <CardTitle className="text-base font-semibold">Inputs & Controles de Formulario</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Variantes con iconos, prefijos, estados deshabilitados y áreas de texto
           </CardDescription>
@@ -148,7 +143,7 @@ export default function ComponentsShowcasePage() {
       {/* 2. BOTONES Y ESTADOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">2. Botones & Acciones</CardTitle>
+          <CardTitle className="text-base font-semibold">Botones & Acciones</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Todos los estilos integrados con la paleta de colores activa
           </CardDescription>
@@ -199,7 +194,7 @@ export default function ComponentsShowcasePage() {
       {/* 3. BADGES Y ESTADOS DE SEMÁFORO */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">3. Badges & Estados de Sistema</CardTitle>
+          <CardTitle className="text-base font-semibold">Badges & Estados de Sistema</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Etiquetas visuales para tablas, tarjetas de crédito y feeds
           </CardDescription>
@@ -235,7 +230,7 @@ export default function ComponentsShowcasePage() {
       {/* 4. TOASTS Y NOTIFICACIONES SONNER */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">4. Notificaciones Flotantes (Sonner)</CardTitle>
+          <CardTitle className="text-base font-semibold">Notificaciones Flotantes (Sonner)</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Feedback instantáneo al usuario para mutaciones y operaciones
           </CardDescription>
@@ -281,7 +276,7 @@ export default function ComponentsShowcasePage() {
       {/* 5. MODALES Y DIÁLOGOS INTERACTIVOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">5. Modales & Diálogos (Dialog)</CardTitle>
+          <CardTitle className="text-base font-semibold">Modales & Diálogos (Dialog)</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Ventanas modales para edición, creación y confirmación de datos con validación
           </CardDescription>
@@ -374,7 +369,7 @@ export default function ComponentsShowcasePage() {
       {/* 6. ESTADOS DE CARGA (SKELETONS) */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">6. Estados de Carga (Skeletons)</CardTitle>
+          <CardTitle className="text-base font-semibold">Estados de Carga (Skeletons)</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Marcadores de posición animados mientras el backend o la API responden
           </CardDescription>
