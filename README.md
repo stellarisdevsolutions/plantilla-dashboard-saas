@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plantilla Dashboard SaaS - Morlo UI (Next.js 16 + Tailwind CSS v4)
 
-## Getting Started
+Plantilla de dashboard profesional, moderna y 100% modular basada en una regla cromática **60-30-10** (Lienzo neutro, Verde Nórdico `#0F2A1D` y Acentos Esmeralda `#10B981`), construida con Next.js 16 (Turbopack), Tailwind CSS v4 y Base UI / Radix primitives.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🏛️ Estructura de Módulos
+
+```text
+Plantilla Dashboard SaaS
+├── 1. Módulo Analítico & KPIs
+│   ├── Resumen General (Vista: /)
+│   └── Mesa de Reseñas & Reputación (Vista: /reviews · 16 reseñas)
+├── 2. Módulo de Tablas & Data Grids CRUD
+│   └── Gestor de Tareas Interactivo (Vista: /table · 9 tareas)
+├── 3. Módulo de Componentes & UI Kit
+│   └── Catálogo UI, Modales & Toasts (Vista: /components-showcase)
+├── 4. Módulo de Formularios & Ajustes
+│   └── Ajustes de Cuenta & Perfil (Vista: /settings)
+└── 5. Módulo de Autenticación & Estados
+    ├── Iniciar Sesión con Autocompletado Demo (Vista: /login)
+    ├── Estados del Sistema: Empty, 500, 403, Offline (Vista: /states)
+    └── Error 404 Oficial de Next.js (Vista: /_not-found)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Paleta Cromática 60-30-10
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **60% Dominante:** `#F4F7F6` en lienzo/fondo y `#FFFFFF` en tarjetas y cabecera en modo claro.
+* **30% Secundario:** `#0F2A1D` (Verde Bosque Nórdico Profundo) en el sidebar vertical permanente.
+* **10% Acento:** `#10B981` (Esmeralda / Menta vibrante) en badges, indicadores activos, CTAs y métricas clave.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Inicio Rápido
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Instalar dependencias
+pnpm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Iniciar servidor de desarrollo
+pnpm dev
 
-## Deploy on Vercel
+# Compilar para producción (0 errores TypeScript & Turbopack)
+pnpm build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Abre **[http://localhost:3000](http://localhost:3000)** en tu navegador.
+Para detalles técnicos adicionales de la arquitectura y componentes, consulta **[STACK.md](STACK.md)**.
