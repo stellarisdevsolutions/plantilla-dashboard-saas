@@ -5,15 +5,15 @@ import { dashboardConfig } from "@/config/dashboard";
 
 export type Palette = "cobalt" | "orange" | "coral" | "emerald" | "amber" | "zinc" | "indigo" | "violet";
 
-const palettes: { id: Palette; name: string; color: string }[] = [
-  { id: "cobalt", name: "Cobalto", color: "#7095ff" },
-  { id: "orange", name: "Naranja", color: "#f77742" },
-  { id: "coral", name: "Coral", color: "#b7432d" },
-  { id: "indigo", name: "Índigo", color: "#4f46e5" },
-  { id: "emerald", name: "Esmeralda", color: "#047857" },
-  { id: "violet", name: "Violeta", color: "#7c3aed" },
-  { id: "amber", name: "Ámbar", color: "#b45309" },
-  { id: "zinc", name: "Zinc", color: "#52525b" },
+const palettes: { id: Palette; name: string }[] = [
+  { id: "cobalt", name: "Cobalto" },
+  { id: "orange", name: "Naranja" },
+  { id: "coral", name: "Coral" },
+  { id: "indigo", name: "Índigo" },
+  { id: "emerald", name: "Esmeralda" },
+  { id: "violet", name: "Violeta" },
+  { id: "amber", name: "Ámbar" },
+  { id: "zinc", name: "Zinc" },
 ];
 
 const storageKey = "dashboard-palette";

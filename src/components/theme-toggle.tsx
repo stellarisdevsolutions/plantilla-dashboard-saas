@@ -29,9 +29,9 @@ export function ThemeToggle() {
       title={`Cambiar a modo ${isDark ? "claro" : "oscuro"}`}
     >
       {isDark ? (
-        <Sun className="h-4 w-4 text-amber-400 transition-transform rotate-0" />
+        <Sun className="h-4 w-4 text-primary transition-transform rotate-0" />
       ) : (
-        <Moon className="h-4 w-4 text-zinc-700 transition-transform rotate-0" />
+        <Moon className="h-4 w-4 text-muted-foreground transition-transform rotate-0" />
       )}
       <span className="sr-only">Alternar tema</span>
     </Button>

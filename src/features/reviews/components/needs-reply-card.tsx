@@ -63,9 +63,9 @@ export function NeedsReplyCard() {
                     <span className="font-semibold text-xs text-foreground truncate">
                       {rev.title}
                     </span>
-                    <div className="flex items-center text-amber-400 gap-0.5">
+                    <div className="flex items-center text-warning gap-0.5">
                       {[...Array(rev.rating)].map((_, i) => (
-                        <Star key={i} className="h-2.5 w-2.5 fill-amber-400" />
+                        <Star key={i} className="h-2.5 w-2.5 fill-warning" />
                       ))}
                     </div>
                   </div>

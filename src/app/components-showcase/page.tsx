@@ -205,7 +205,7 @@ export default function ComponentsShowcasePage() {
               <CheckCircle2 className="h-3 w-3" />
               <span>Éxito / Aprobado</span>
             </Badge>
-            <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20 text-xs gap-1">
+            <Badge className="bg-warning/10 text-warning border-warning/20 text-xs gap-1">
               <AlertTriangle className="h-3 w-3" />
               <span>Pendiente / Alerta</span>
             </Badge>
@@ -213,7 +213,7 @@ export default function ComponentsShowcasePage() {
               <XCircle className="h-3 w-3" />
               <span>Rechazado / Error</span>
             </Badge>
-            <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20 text-xs gap-1">
+            <Badge className="bg-info/10 text-info border-info/20 text-xs gap-1">
               <Info className="h-3 w-3" />
               <span>Informativo</span>
             </Badge>
@@ -257,7 +257,7 @@ export default function ComponentsShowcasePage() {
               variant="outline"
               size="sm"
               onClick={() => toast.info("Nota del sistema", { description: "Hay una actualización programada hoy." })}
-              className="text-xs text-blue-500 cursor-pointer"
+              className="text-xs text-info cursor-pointer"
             >
               Toast Info
             </Button>

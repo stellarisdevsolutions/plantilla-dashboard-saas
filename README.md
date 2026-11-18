@@ -15,7 +15,7 @@ Abre el puerto 3000 en tu navegador. Ejecuta `pnpm lint` para revisar el código
 
 ## Personalizar después de clonar
 
-1. Cambia el nombre, las iniciales, el tema, la paleta inicial y el usuario de ejemplo en `src/config/dashboard.ts`.
+1. Cambia el nombre, las iniciales, el tema, la paleta inicial y el usuario de ejemplo en `src/config/dashboard.ts`. Las variables `--brand-*` en `src/app/globals.css` definen los acentos que usan la navegación y las facturas.
 2. Ajusta las opciones del menú en `src/config/navigation.ts`. Las páginas disponibles están en `src/app/`.
 3. Edita los colores en `src/app/globals.css`. Mantén el fondo y las tarjetas como superficies dominantes, usa el tono secundario para la navegación y reserva el acento para acciones, selecciones y gráficos. El 60/30/10 es una guía de composición.
 4. Reemplaza los datos de ejemplo en `src/features/` y conecta los formularios a los servicios de tu proyecto. El acceso, las operaciones de usuarios y la configuración que trae la plantilla son demostraciones locales.

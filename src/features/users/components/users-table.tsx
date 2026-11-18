@@ -181,7 +181,7 @@ export function UsersTable() {
         return (
           <div className="flex items-center gap-1.5 text-xs">
             {status === "Activo" && <CheckCircle2 className="h-3.5 w-3.5 text-primary" />}
-            {status === "Pendiente" && <Clock className="h-3.5 w-3.5 text-amber-500" />}
+            {status === "Pendiente" && <Clock className="h-3.5 w-3.5 text-warning" />}
             {status === "Inactivo" && <XCircle className="h-3.5 w-3.5 text-muted-foreground" />}
             <span className="text-[11px] font-medium">{status}</span>
           </div>

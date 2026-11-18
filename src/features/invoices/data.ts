@@ -6,11 +6,11 @@ export type Invoice = {
 };
 
 export const customers = [
-  { company: "Forma Studio", contact: "Ana León", initials: "AL", tone: "#cbb2aa" },
-  { company: "Northline", contact: "Lucas Vidal", initials: "LV", tone: "#b4c6cc" },
-  { company: "BrightWave", contact: "Jaime Castro", initials: "JC", tone: "#e1c290" },
-  { company: "Lumen Labs", contact: "Emma Costa", initials: "EC", tone: "#c6bddc" },
-  { company: "Atlas Digital", contact: "Leo Silva", initials: "LS", tone: "#bfd8be" },
+  { company: "Forma Studio", contact: "Ana León", initials: "AL", tone: "danger" },
+  { company: "Northline", contact: "Lucas Vidal", initials: "LV", tone: "info" },
+  { company: "BrightWave", contact: "Jaime Castro", initials: "JC", tone: "warning" },
+  { company: "Lumen Labs", contact: "Emma Costa", initials: "EC", tone: "brand" },
+  { company: "Atlas Digital", contact: "Leo Silva", initials: "LS", tone: "success" },
 ];
 export const reportDate = "2026-11-18";
 const seeds: { customer: number; due: string; status: Status; items: Item[] }[] = [

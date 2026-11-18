@@ -8,9 +8,9 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import { Input } from "@/components/ui/input";
 import { navigation } from "@/config/navigation";
 
-const entries = navigation.flatMap(({ title, href, icon, examples = [] }) => [
-  { title, href, icon },
-  ...examples.map((example) => ({ ...example, icon })),
+const entries = navigation.flatMap(({ title, pageTitle, href, icon, examples = [] }) => [
+  { title, href, icon, keywords: pageTitle },
+  ...examples.map((example) => ({ ...example, icon, keywords: undefined })),
 ]);
 
 function normalize(value: string) {
@@ -23,7 +23,7 @@ export function ModuleSearch() {
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const term = normalize(query.trim());
-  const matches = entries.filter(({ title }) => normalize(title).includes(term));
+  const matches = entries.filter(({ title, keywords }) => normalize([title, keywords].join(" ")).includes(term));
 
   useEffect(() => {
     function handleShortcut(event: KeyboardEvent) {

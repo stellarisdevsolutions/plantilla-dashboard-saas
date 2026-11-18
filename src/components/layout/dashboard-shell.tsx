@@ -16,7 +16,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       <DialogTrigger render={<Button variant="ghost" size="icon" className="shrink-0 md:hidden" aria-label="Abrir navegación" />}>
         <Menu aria-hidden />
       </DialogTrigger>
-      <DialogContent className="inset-y-0 left-0 h-dvh w-64 max-w-[85vw] translate-x-0 translate-y-0 overflow-hidden rounded-none p-0 text-sidebar-foreground md:hidden [&_aside]:w-full [&_button]:hover:bg-sidebar-accent">
+      <DialogContent className="inset-y-0 left-0 h-dvh w-64 max-w-[85vw] translate-x-0 translate-y-0 overflow-hidden rounded-none p-0 shell-drawer md:hidden [&_aside]:w-full">
         <DialogTitle className="sr-only">Navegación principal</DialogTitle>
         <Sidebar onNavigate={() => setMobileOpen(false)} />
       </DialogContent>

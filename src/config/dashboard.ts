@@ -2,7 +2,7 @@ export const dashboardConfig = {
   name: "Panel Admin",
   initials: "PA",
   description: "Plantilla de administración para productos SaaS.",
-  defaultPalette: "emerald",
+  defaultPalette: "indigo",
   defaultTheme: "light",
 } as const;
 

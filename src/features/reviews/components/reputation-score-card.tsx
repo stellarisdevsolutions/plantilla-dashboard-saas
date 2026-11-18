@@ -21,11 +21,11 @@ export function ReputationScoreCard() {
               {REVIEW_DEMO_DATA.reputationScore}
             </span>
             <span className="text-sm font-bold text-muted-foreground">/{REVIEW_DEMO_DATA.maxScore}</span>
-            <div className="flex items-center text-amber-400 gap-0.5 ml-1">
+            <div className="flex items-center text-warning gap-0.5 ml-1">
               {[...Array(4)].map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                <Star key={i} className="h-3.5 w-3.5 fill-warning text-warning" />
               ))}
-              <Star className="h-3.5 w-3.5 fill-amber-400/40 text-amber-400" />
+              <Star className="h-3.5 w-3.5 fill-warning/40 text-warning" />
             </div>
             <span className="inline-flex items-center rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-bold text-primary ml-1">
               <ArrowUpRight className="h-3 w-3 mr-0.5" />

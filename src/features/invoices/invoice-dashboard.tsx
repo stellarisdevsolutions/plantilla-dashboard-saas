@@ -77,7 +77,7 @@ export function InvoiceDashboard() {
           <Layers3 size={17} aria-hidden /></div>
         {current ? <div className="iv-ledger-body">
           <ul className="iv-list">{filtered.map(i => <li key={i.id}><button aria-pressed={current.id === i.id} onClick={() => setSelected(i.id)}>
-            <span className="iv-avatar" style={{background: i.tone}}>{i.initials}</span>
+            <span className="iv-avatar" style={{background: `var(--tint-${i.tone})`}}>{i.initials}</span>
             <span className="iv-list-id"><b>INV-{i.id}</b><small>{shortDate(i.due)}</small></span>
             <span className="iv-badge">{i.status}</span><strong>{currency(total(i))}</strong>
           </button></li>)}</ul>
@@ -85,7 +85,7 @@ export function InvoiceDashboard() {
             <div className="iv-detail-head">
               <div><small>Detalle de factura</small><h3># INV-{current.id}</h3></div>
               <div><small>Empresa</small><b>{current.company} <Building2 size={16}/></b></div>
-              <div><small>Contacto</small><b><span className="iv-avatar" style={{background: current.tone}}>{current.initials}</span>{current.contact}</b></div>
+              <div><small>Contacto</small><b><span className="iv-avatar" style={{background: `var(--tint-${current.tone})`}}>{current.initials}</span>{current.contact}</b></div>
             </div>
             <div className="iv-items">{current.items.map((item,i) => <div key={i} className="iv-item"><CircleDollarSign size={14} /><b>{currency(item.amount)}</b><small>{item.label}</small></div>)}
               {current.status !== "Pagada" && <button onClick={() => setModal("item")}><Plus size={18}/>Añadir ítem</button>}

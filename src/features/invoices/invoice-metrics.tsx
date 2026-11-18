@@ -31,10 +31,10 @@ export function InvoiceMetrics({ invoices }: { invoices: Invoice[] }) {
         <strong>{latest} <em>días</em></strong>
         <small><ArrowDownLeft /> {daysToCollect.at(-2)! - latest} días menos que en octubre</small>
         <svg className="iv-line" viewBox="0 0 240 90" preserveAspectRatio="none" role="img" aria-label="El plazo de cobro baja de 31 a 16 días">
-          <defs><linearGradient id="billing-area" x1="0" x2="0" y1="0" y2="1"><stop stopColor="var(--iv-accent)" stopOpacity=".24" /><stop offset="1" stopColor="var(--iv-accent)" stopOpacity="0" /></linearGradient></defs>
+          <defs><linearGradient id="billing-area" x1="0" x2="0" y1="0" y2="1"><stop stopColor="var(--primary)" stopOpacity=".24" /><stop offset="1" stopColor="var(--primary)" stopOpacity="0" /></linearGradient></defs>
           <polygon points={line + " 233,90 7,90"} fill="url(#billing-area)" />
-          <polyline points={line} fill="none" stroke="var(--iv-accent)" strokeWidth="2" />
-          {points.map(([x,y]) => <circle key={x} cx={x} cy={y} r="2.8" fill="var(--iv-paper)" stroke="var(--iv-accent)" strokeWidth="1.7" />)}
+          <polyline points={line} fill="none" stroke="var(--primary)" strokeWidth="2" />
+          {points.map(([x,y]) => <circle key={x} cx={x} cy={y} r="2.8" fill="var(--card)" stroke="var(--primary)" strokeWidth="1.7" />)}
         </svg>
       </article>
       <article className="iv-metric iv-wallet">

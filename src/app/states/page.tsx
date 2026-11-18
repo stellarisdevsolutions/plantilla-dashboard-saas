@@ -182,9 +182,9 @@ export default function StatesPage() {
 
         {/* 4. PERMISOS DENEGADOS (403 FORBIDDEN) */}
         {activeTab === "forbidden" && (
-          <Card className="border-amber-500/30 bg-card/95 shadow-sm rounded-xl overflow-hidden p-8 sm:p-16 text-center">
+          <Card className="border-warning/30 bg-card/95 shadow-sm rounded-xl overflow-hidden p-8 sm:p-16 text-center">
             <div className="mx-auto max-w-md space-y-5">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shadow-inner">
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-warning/10 text-warning border border-warning/20 shadow-inner">
                 <ShieldAlert className="h-10 w-10 stroke-[1.5]" />
               </div>
 

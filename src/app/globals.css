@@ -71,6 +71,32 @@
    ========================================================================== */
 
 :root {
+  --brand-cobalt: #214db8;
+  --brand-orange: #b43a12;
+  --brand-coral: #b7432d;
+  --brand-emerald: #186b45;
+  --brand-indigo: #5844e8;
+  --brand-violet: #7c3aed;
+  --brand-amber: #b45309;
+  --brand-zinc: #18181b;
+  --brand-pigment: var(--brand-emerald);
+  --ink-base: #191a28;
+  --on-ink: #ffffff;
+  --surface-inverse: color-mix(in srgb, var(--ink-base) 94%, var(--brand-pigment));
+  --inverse-soft: color-mix(in srgb, var(--surface-inverse) 92%, var(--on-ink));
+  --inverse-muted: color-mix(in srgb, var(--on-ink) 75%, var(--surface-inverse));
+  --inverse-border: color-mix(in srgb, var(--on-ink) 20%, transparent);
+  --brand-solid: color-mix(in srgb, var(--brand-pigment) 91%, var(--ink-base));
+  --brand-light: color-mix(in srgb, var(--brand-pigment) 58%, var(--on-ink));
+  --brand-panel: color-mix(in srgb, var(--brand-solid) 68%, var(--inverse-muted));
+  --brand-panel-deep: color-mix(in srgb, var(--brand-panel) 82%, var(--ink-base));
+  --canvas: color-mix(in srgb, var(--background) 75%, var(--card));
+  --tint-success: color-mix(in srgb, var(--success) 26%, var(--on-ink));
+  --tint-warning: color-mix(in srgb, var(--warning) 30%, var(--on-ink));
+  --tint-info: color-mix(in srgb, var(--info) 26%, var(--on-ink));
+  --tint-danger: color-mix(in srgb, var(--destructive) 24%, var(--on-ink));
+  --tint-brand: color-mix(in srgb, var(--brand-pigment) 26%, var(--on-ink));
+
   color-scheme: light;
   --radius: 0.75rem;
 
@@ -200,7 +226,8 @@
   --muted-foreground: #4d5f7b;
   --border: #dce4f1;
   --input: #d2dced;
-  --primary: #214db8;
+  --primary: var(--brand-cobalt);
+  --brand-pigment: var(--brand-cobalt);
   --primary-foreground: #ffffff;
   --accent: #e6eeff;
   --accent-foreground: #234ca8;
@@ -253,13 +280,6 @@
   --chart-5: #354667;
 }
 
-[data-palette="cobalt"] .module-link {
-  border-radius: var(--radius);
-}
-
-[data-palette="cobalt"] .module-link[aria-current] {
-  box-shadow: inset 2px 0 var(--chart-1);
-}
 
 /* Naranja */
 :root[data-palette="orange"] {
@@ -276,7 +296,8 @@
   --border: #e7e6e4;
   --input: #deddda;
 
-  --primary: #b43a12;
+  --primary: var(--brand-orange);
+  --brand-pigment: var(--brand-orange);
   --primary-foreground: #ffffff;
   --accent: #fff1e9;
   --accent-foreground: #94340e;
@@ -352,7 +373,8 @@
 
 /* Coral */
 [data-palette="coral"] {
-  --primary: #b7432d;
+  --primary: var(--brand-coral);
+  --brand-pigment: var(--brand-coral);
   --primary-foreground: #ffffff;
   --accent: #fff0e8;
   --accent-foreground: #8b3222;
@@ -405,7 +427,8 @@
   --muted-foreground: #606b64;
   --border: #dfe7e2;
   --input: #d6e1da;
-  --primary: #186b45;
+  --primary: var(--brand-emerald);
+  --brand-pigment: var(--brand-emerald);
   --primary-foreground: #ffffff;
   --accent: #e8f6ee;
   --accent-foreground: #0b583f;
@@ -460,7 +483,13 @@
 
 /* Índigo */
 [data-palette="indigo"] {
-  --primary: #4f46e5;
+  --background: #f8f8fc;
+  --foreground: #201f2e;
+  --muted: #f0eff6;
+  --muted-foreground: #656377;
+  --border: #e5e4ed;
+  --primary: var(--brand-indigo);
+  --brand-pigment: var(--brand-indigo);
   --primary-foreground: #ffffff;
   --accent: #eef2ff;
   --accent-foreground: #3730a3;
@@ -478,6 +507,11 @@
   --chart-4: #64748b;
 }
 .dark[data-palette="indigo"] {
+  --background: #181922;
+  --foreground: #f4f1fd;
+  --muted: #262633;
+  --muted-foreground: #c2bfd2;
+  --border: #343545;
   --primary: #a5b4fc;
   --primary-foreground: #171b31;
   --accent: #1c1e3b;
@@ -497,7 +531,8 @@
 
 /* Violeta */
 [data-palette="violet"] {
-  --primary: #7c3aed;
+  --primary: var(--brand-violet);
+  --brand-pigment: var(--brand-violet);
   --primary-foreground: #ffffff;
   --accent: #f5f3ff;
   --accent-foreground: #5b21b6;
@@ -534,7 +569,8 @@
 
 /* Ámbar */
 [data-palette="amber"] {
-  --primary: #b45309;
+  --primary: var(--brand-amber);
+  --brand-pigment: var(--brand-amber);
   --primary-foreground: #ffffff;
   --accent: #fffbeb;
   --accent-foreground: #92400e;
@@ -571,7 +607,8 @@
 
 /* Zinc */
 [data-palette="zinc"] {
-  --primary: #18181b;
+  --primary: var(--brand-zinc);
+  --brand-pigment: var(--brand-zinc);
   --primary-foreground: #ffffff;
   --accent: #f4f4f5;
   --accent-foreground: #18181b;
