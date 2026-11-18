@@ -1,6 +1,7 @@
 import { DashboardShell } from "@/components/layout/dashboard-shell";
-import { ProjectOverview } from "@/features/overview/components/project-overview";
+import { InvoiceDashboard } from "@/features/invoices/invoice-dashboard";
+import "@/features/invoices/invoices.css";
 
 export default function HomePage() {
-  return <DashboardShell><ProjectOverview /></DashboardShell>;
+  return <DashboardShell><InvoiceDashboard /></DashboardShell>;
 }

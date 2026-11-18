@@ -24,7 +24,7 @@ Abre el puerto 3000 en tu navegador. Ejecuta `pnpm lint` para revisar el código
 
 | Módulo | Ruta | Incluye |
 | --- | --- | --- |
-| Analítica y KPIs | `/` | Indicadores y gráficos, con un ejemplo de analítica de reseñas en `/reviews` |
+| Analítica y KPIs | `/` | Facturación de demostración, con ejemplos de proyectos en `/projects` y reseñas en `/reviews` |
 | Tablas y grids | `/table` | Tabla de usuarios con búsqueda, filtros, paginación y operaciones en memoria |
 | Componentes UI y kit | `/components-showcase` | Controles, diálogos, notificaciones y estados del sistema en `/states` |
 | Formularios y ajustes | `/settings` | Perfil, notificaciones y credenciales de ejemplo |

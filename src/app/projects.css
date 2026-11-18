@@ -2,9 +2,9 @@
 .dashboard-frame {
   --project-ink: color-mix(in srgb, var(--primary) 42%, #04150a);
   --project-surface: color-mix(in srgb, var(--card) 94%, var(--foreground));
-  display: flex; gap: 10px; padding: 12px; margin: clamp(12px, 4.3vw, 60px) auto;
-  width: min(90%, 1460px); min-height: min(66vw, 950px);
-  border-radius: 24px; background: var(--card); box-shadow: 0 24px 70px #10161312;
+  display: flex; gap: 10px; padding: 12px; margin: 0;
+  width: 100%; min-height: 100dvh;
+  background: var(--card);
 }
 body:has(.dashboard-frame) { background: radial-gradient(ellipse at 53% 85%, var(--border), var(--project-page, #e8e9e8)); }
 .dark body:has(.dashboard-frame) { --project-page: #101512; }
@@ -102,7 +102,6 @@ body:has(.dashboard-frame) { background: radial-gradient(ellipse at 53% 85%, var
   .member-role { display: none; }
 }
 @media (max-width: 900px) {
-  .dashboard-frame { width: 98%; margin: 10px auto; }
   .project-board { grid-template-columns: 1fr; }
   .board-side { display: grid; grid-template-columns: 1.25fr 1fr; }
   .project-kpis { grid-template-columns: repeat(2,minmax(0,1fr)); }
