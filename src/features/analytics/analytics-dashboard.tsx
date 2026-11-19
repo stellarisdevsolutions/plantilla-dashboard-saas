@@ -54,10 +54,10 @@ function Evolution({ rows }: { rows: MonthlyMetrics[] }) {
       <div className="an-axis" aria-hidden>{[ceiling, ceiling / 2, 0].map(value => <span key={value}>{number.format(value)}</span>)}</div>
       <div className="an-series">
         <svg viewBox="0 0 1000 140" preserveAspectRatio="none" aria-hidden>
-          <defs><linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1"><stop stopColor="var(--primary)" stopOpacity=".26" /><stop offset="1" stopColor="var(--primary)" stopOpacity=".015" /></linearGradient></defs>
-          {[0, height / 2, height].map(y => <line key={y} x1="0" x2="1000" y1={y} y2={y} stroke="var(--border)" strokeDasharray="3 5" vectorEffect="non-scaling-stroke" />)}
+          <defs><linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1"><stop stopColor="var(--plot-color)" stopOpacity=".26" /><stop offset="1" stopColor="var(--plot-color)" stopOpacity=".015" /></linearGradient></defs>
+          {[0, height / 2, height].map(y => <line key={y} x1="0" x2="1000" y1={y} y2={y} stroke="var(--plot-grid)" strokeDasharray="3 5" vectorEffect="non-scaling-stroke" />)}
           <polygon points={first.x + "," + height + " " + line + " " + last.x + "," + height} fill={`url(#${fillId})`} />
-          <polyline points={line} fill="none" stroke="var(--primary)" strokeWidth="2.8" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+          <polyline points={line} fill="none" stroke="var(--plot-color)" strokeWidth="2.8" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         </svg>
         <div className="an-bars">{rows.map((row, i) => <button key={row.month} aria-label={dateLabel(row.month) + ", " + money.format(row[metric])} aria-pressed={row === selected} onClick={() => setChosen(row.month)}>
           <i aria-hidden style={{top: points[i].y / height * 100 + "%"}}/><small>{shortMonth(row.month)}</small>
@@ -75,7 +75,7 @@ function TargetGauge({ progress }: { progress: number | null }) {
       {Array.from({ length: steps }, (_, index) => <line key={index}
         x1="18" x2="37" y1="113" y2="113"
         transform={`rotate(${index * 180 / (steps - 1)} 120 113)`}
-        stroke={index < filled ? "var(--brand-light)" : "var(--inverse-border)"}
+        stroke={index < filled ? "var(--on-ink)" : "var(--inverse-border)"}
         strokeWidth="4" strokeLinecap="round" />)}
     </svg>
     <div><strong>{percent(progress)}</strong><small>de la meta</small></div>
