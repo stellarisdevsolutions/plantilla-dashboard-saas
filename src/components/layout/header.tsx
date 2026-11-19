@@ -17,7 +17,6 @@ export function Header({ onToggleSidebar, collapsed, mobileNavigation }: {
 }) {
   const pathname = usePathname();
   const section = navigation.find(item => isNavigationActive(item, pathname));
-  const pages = section ? [{ title: section.pageTitle ?? section.title, href: section.href }, ...(section.examples ?? [])] : [];
   return (
     <header className="dashboard-header">
       <div className="shell-header-start">
@@ -26,9 +25,7 @@ export function Header({ onToggleSidebar, collapsed, mobileNavigation }: {
           aria-label={collapsed ? "Expandir navegación" : "Contraer navegación"} aria-expanded={!collapsed}>
           <PanelLeft aria-hidden />
         </Button>
-        {pages.length > 1 ? <nav className="shell-pages" aria-label="Páginas del módulo">
-          {pages.map(page => <Link key={page.href} href={page.href} aria-current={pathname === page.href ? "page" : undefined}>{page.title}</Link>)}
-        </nav> : <span className="shell-section">{section?.title}</span>}
+        <span className="shell-section">{section?.title}</span>
       </div>
       <div className="shell-header-tools">
         <ModuleSearch />
