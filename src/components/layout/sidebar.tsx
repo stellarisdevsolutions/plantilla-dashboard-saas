@@ -4,7 +4,7 @@ import { ArrowUpRight, Component, Layers3 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { dashboardConfig } from "@/config/dashboard";
-import { isNavigationActive, navigation } from "@/config/navigation";
+import { navigation } from "@/config/navigation";
 
 export function Sidebar({ collapsed = false, onNavigate }: {
   collapsed?: boolean;
@@ -22,7 +22,7 @@ export function Sidebar({ collapsed = false, onNavigate }: {
         {navigation.map(item => {
           const { title, href, icon: Icon } = item;
           return <Link key={href} href={href} onClick={onNavigate} aria-label={title} title={collapsed ? title : undefined}
-            aria-current={isNavigationActive(item, pathname) ? (pathname === href ? "page" : "location") : undefined}>
+            aria-current={pathname === href ? "page" : undefined}>
             <Icon size={17} aria-hidden /><span>{title}</span>
           </Link>;
         })}

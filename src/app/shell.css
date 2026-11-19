@@ -70,7 +70,7 @@
   .shell-section { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
-.shell-drawer .shell-rail { width: 100%; }
+.shell-drawer .shell-rail { width: 100%; overflow-y: auto; }
 .shell-drawer [data-slot="dialog-close"] { color: var(--on-ink); }
 .shell-drawer [data-slot="dialog-close"]:hover { background: var(--inverse-soft); }
 

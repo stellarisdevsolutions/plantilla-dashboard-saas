@@ -7,7 +7,7 @@ import { PaletteSwitcher } from "@/components/palette-switcher";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { demoUser } from "@/config/dashboard";
-import { isNavigationActive, navigation } from "@/config/navigation";
+import { navigation } from "@/config/navigation";
 import { ModuleSearch } from "./module-search";
 
 export function Header({ onToggleSidebar, collapsed, mobileNavigation }: {
@@ -16,7 +16,7 @@ export function Header({ onToggleSidebar, collapsed, mobileNavigation }: {
   mobileNavigation: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const section = navigation.find(item => isNavigationActive(item, pathname));
+  const section = navigation.find(item => item.href === pathname);
   return (
     <header className="dashboard-header">
       <div className="shell-header-start">
