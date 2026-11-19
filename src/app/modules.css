@@ -14,9 +14,9 @@
 .module-page [data-slot=card-header] {padding:var(--billing-card-padding);}
 .module-page [data-slot=card-title] {letter-spacing:-.035em;}
 .module-page [data-slot=card-content] {padding-inline:var(--billing-card-padding);}
-.module-page [data-slot=tabs-list] {display:flex;flex-wrap:wrap;height:auto;max-width:100%;background:var(--surface-inverse);padding:4px;border-radius:14px;}
-.module-page [data-slot=tabs-trigger] {color:var(--inverse-muted);}
-.module-page [data-slot=tabs-trigger][aria-selected=true] {background:var(--brand-solid);color:var(--on-ink);}
+.module-page [data-slot=tabs-list] {display:flex;flex-wrap:wrap;height:auto;max-width:100%;background:var(--canvas);border:1px solid var(--border);padding:4px;border-radius:14px;}
+.module-page [data-slot=tabs-trigger] {color:var(--muted-foreground);}
+.module-page [data-slot=tabs-trigger][aria-selected=true] {background:var(--accent);color:var(--accent-foreground);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--primary) 25%,transparent);}
 .module-view-toggle {display:inline-flex;gap:2px;padding:3px;border:1px solid var(--border);border-radius:99px;background:var(--card);}
 .module-view-toggle button {padding:5px 12px;border-radius:99px;font-size:.75rem;cursor:pointer;}
 .module-view-toggle [aria-pressed=true] {background:var(--brand-solid);color:var(--on-ink);}
