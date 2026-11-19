@@ -65,6 +65,16 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+function UserStatus({ status }: { status: ClientAccount["status"] }) {
+  const Icon = { Activo: CheckCircle2, Pendiente: Clock, Inactivo: XCircle }[status];
+  return (
+    <Badge variant="outline" className="directory-status" data-status={status}>
+      <Icon aria-hidden />
+      {status}
+    </Badge>
+  );
+}
+
 export function UsersTable() {
   const [data, setData] = React.useState<ClientAccount[]>(CLIENT_ACCOUNTS);
   const [pendingDeletion, setPendingDeletion] = React.useState<string[]>([]);
@@ -178,17 +188,7 @@ export function UsersTable() {
     {
       accessorKey: "status",
       header: "Estado",
-      cell: ({ row }) => {
-        const status = row.getValue("status") as string;
-        return (
-          <div className="flex items-center gap-1.5 text-xs">
-            {status === "Activo" && <CheckCircle2 className="h-3.5 w-3.5 text-primary" />}
-            {status === "Pendiente" && <Clock className="h-3.5 w-3.5 text-warning" />}
-            {status === "Inactivo" && <XCircle className="h-3.5 w-3.5 text-muted-foreground" />}
-            <span className="text-[11px] font-medium">{status}</span>
-          </div>
-        );
-      },
+      cell: ({ row }) => <UserStatus status={row.original.status} />,
     },
     {
       accessorKey: "spent",
@@ -406,12 +406,12 @@ export function UsersTable() {
               {row.getVisibleCells().filter(cell => ["select","actions"].includes(cell.column.id)).map(cell => <div key={cell.id}>{flexRender(cell.column.columnDef.cell,cell.getContext())}</div>)}
             </div>
             <strong>{row.original.name}</strong><small>{row.original.email}</small>
-            <div className="flex items-center justify-between gap-2"><span>{row.original.role}</span><Badge variant="secondary">{row.original.status}</Badge></div>
+            <div className="flex items-center justify-between gap-2"><span>{row.original.role}</span><UserStatus status={row.original.status} /></div>
           </article>)}
           {table.getRowModel().rows.length === 0 && <p>No se encontraron resultados para la búsqueda.</p>}
-        </div> : <div className="rounded-lg border border-border/70 overflow-hidden">
+        </div> : <div className="directory-table overflow-hidden rounded-xl border border-border">
           <Table>
-            <TableHeader className="bg-muted/40">
+            <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="border-border/70 hover:bg-transparent">
                   {headerGroup.headers.map((header) => (

@@ -2,7 +2,7 @@
 .dashboard-main:has(>.module-page) { background:var(--canvas); padding:clamp(14px,1.85vw,32px); }
 .module-page > :first-child {
   position:relative; isolation:isolate; overflow:hidden; padding:clamp(18px,2.3vw,34px);
-  border-radius:20px; background:linear-gradient(115deg,var(--surface-inverse) 30%,var(--brand-panel-deep));
+  border-radius:20px; background:linear-gradient(110deg, var(--surface-inverse) 30%, var(--brand-solid));
   color:var(--on-ink);
 }
 .module-page > :first-child::before,.login-brand::before { content:''; position:absolute; inset:0 0 0 38%; z-index:-1; background:var(--brand-light); mask:url('/contours.svg') right center/cover; opacity:.26; pointer-events:none; }
@@ -24,8 +24,27 @@
 .directory-card {display:grid;gap:6px;padding:14px;border-radius:15px;border:1px solid var(--border);background:var(--card);font-size:.8rem;}
 .directory-card small {color:var(--muted-foreground);overflow-wrap:anywhere;}
 .directory-card > div:last-child {border-top:1px solid var(--border);padding-top:9px;}
-.module-page [data-slot=table-header] {background:var(--surface-inverse);}
-.module-page [data-slot=table-head] {color:var(--on-ink);}
+.directory-table [data-slot=table-header] {
+  background: linear-gradient(110deg, color-mix(in srgb, var(--primary) 11%, var(--card)), var(--card));
+}
+.directory-table [data-slot=table-head] {
+  height: 44px;
+  color: var(--foreground);
+}
+.directory-table [data-slot=table-head] button svg { color: var(--primary); }
+.directory-table [data-slot=table-row][data-state=selected] {
+  background: color-mix(in srgb, var(--primary) 9%, var(--card));
+}
+.directory-status {
+  --status-color: var(--muted-foreground);
+  gap: 4px;
+  color: color-mix(in srgb, var(--status-color) 55%, var(--foreground));
+  background: color-mix(in srgb, var(--status-color) 13%, var(--card));
+  border-color: color-mix(in srgb, var(--status-color) 22%, transparent);
+}
+.directory-status[data-status="Activo"] { --status-color: var(--success); }
+.directory-status[data-status="Pendiente"] { --status-color: var(--warning); }
+.directory-status svg { color: var(--status-color); }
 .module-login {background:var(--canvas);}
 .module-login .login-brand {position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(155deg,var(--surface-inverse) 25%,var(--brand-panel-deep) 90%);color:var(--on-ink);}
 .login-brand p,.login-brand > a {color:var(--on-ink);}
