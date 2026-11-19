@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Activity, ArrowDownRight, ArrowUpRight, ChartNoAxesCombined, ChevronDown, CircleDollarSign, Crosshair, MousePointer2, UsersRound } from "lucide-react";
+import { useId, useState } from "react";
+import { Activity, ArrowDownRight, ArrowUpRight, ChartNoAxesCombined, ChevronDown, CircleDollarSign, CalendarDays, Crosshair, Filter, PieChart, Repeat2, Star, Timer, MousePointer2, UsersRound } from "lucide-react";
 import { acquired, ratio, summarize, type MonthlyMetrics } from "./data";
 
 const number = new Intl.NumberFormat("es-ES", {useGrouping: "always", maximumFractionDigits: 0});
@@ -29,15 +29,57 @@ function Delta({ value, prior, points = false }: { value: number | null; prior: 
 function Evolution({ rows }: { rows: MonthlyMetrics[] }) {
   const [metric, setMetric] = useState<"revenue" | "costs">("revenue");
   const [chosen, setChosen] = useState("");
+  const fillId = useId();
   const selected = rows.find(row => row.month === chosen) ?? rows[rows.length - 1];
-  const max = Math.max(1,...rows.map(row => row[metric]));
+  const highest = Math.max(1, ...rows.map(row => row[metric]));
+  const unit = 10 ** Math.floor(Math.log10(highest));
+  const ceiling = Math.ceil(highest / unit) * unit;
+  const height = 140;
+  const points = rows.map((row, i) => ({
+    x: (i + 0.5) / rows.length * 1000,
+    y: height * (1 - row[metric] / ceiling),
+  }));
+  const line = points.map(({ x, y }) => x + "," + y).join(" ");
+  const first = points[0];
+  const last = points[points.length - 1];
+
   return <article className="an-card an-evolution">
-    <header><h3>Evolución financiera</h3><select aria-label="Serie financiera" value={metric} onChange={event => setMetric(event.target.value as typeof metric)}><option value="revenue">Ingresos</option><option value="costs">Costes</option></select></header>
+    <header><h3>Evolución financiera</h3>
+      <select aria-label="Serie financiera" value={metric} onChange={event => setMetric(event.target.value as typeof metric)}>
+        <option value="revenue">Ingresos</option><option value="costs">Costes</option>
+      </select>
+    </header>
     <div className="an-reading" aria-live="polite"><strong>{money.format(selected[metric])}</strong><span>{dateLabel(selected.month)}</span></div>
-    <div className="an-bars">{rows.map(row => <button key={row.month} aria-label={dateLabel(row.month) + ", " + money.format(row[metric])} aria-pressed={row === selected} onClick={() => setChosen(row.month)}>
-      <span className="an-bar-track"><i style={{height: (row[metric] / max * 100) + "%"}} /></span><small>{shortMonth(row.month)}</small>
-    </button>)}</div>
+    <div className="an-graph">
+      <div className="an-axis" aria-hidden>{[ceiling, ceiling / 2, 0].map(value => <span key={value}>{number.format(value)}</span>)}</div>
+      <div className="an-series">
+        <svg viewBox="0 0 1000 140" preserveAspectRatio="none" aria-hidden>
+          <defs><linearGradient id={fillId} x1="0" y1="0" x2="0" y2="1"><stop stopColor="var(--primary)" stopOpacity=".26" /><stop offset="1" stopColor="var(--primary)" stopOpacity=".015" /></linearGradient></defs>
+          {[0, height / 2, height].map(y => <line key={y} x1="0" x2="1000" y1={y} y2={y} stroke="var(--border)" strokeDasharray="3 5" vectorEffect="non-scaling-stroke" />)}
+          <polygon points={first.x + "," + height + " " + line + " " + last.x + "," + height} fill={`url(#${fillId})`} />
+          <polyline points={line} fill="none" stroke="var(--primary)" strokeWidth="2.8" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+        </svg>
+        <div className="an-bars">{rows.map((row, i) => <button key={row.month} aria-label={dateLabel(row.month) + ", " + money.format(row[metric])} aria-pressed={row === selected} onClick={() => setChosen(row.month)}>
+          <i aria-hidden style={{top: points[i].y / height * 100 + "%"}}/><small>{shortMonth(row.month)}</small>
+        </button>)}</div>
+      </div>
+    </div>
   </article>;
+}
+
+function TargetGauge({ progress }: { progress: number | null }) {
+  const steps = 38;
+  const filled = Math.round(Math.min(1, Math.max(0, progress ?? 0)) * steps);
+  return <div className="an-gauge">
+    <svg viewBox="0 0 240 126" aria-hidden>
+      {Array.from({ length: steps }, (_, index) => <line key={index}
+        x1="18" x2="37" y1="113" y2="113"
+        transform={`rotate(${index * 180 / (steps - 1)} 120 113)`}
+        stroke={index < filled ? "var(--brand-light)" : "var(--inverse-border)"}
+        strokeWidth="4" strokeLinecap="round" />)}
+    </svg>
+    <div><strong>{percent(progress)}</strong><small>de la meta</small></div>
+  </div>;
 }
 
 export function AnalyticsDashboard({ months }: { months: MonthlyMetrics[] }) {
@@ -63,31 +105,48 @@ export function AnalyticsDashboard({ months }: { months: MonthlyMetrics[] }) {
     ["Operaciones comerciales",number.format(current.orders),"Número total de operaciones del periodo."],
     ["Entregas completadas",number.format(current.completed),"Total de entregas realizadas durante el periodo."],
   ];
+  const channelColors = ["var(--brand-pigment)", "var(--brand-light)", "var(--muted-foreground)", "var(--border)"];
+  let channelOffset = 0;
+  const channelStops = current.channels.map(({value}, index) => {
+    const start = channelOffset;
+    channelOffset += (ratio(value, current.customers) ?? 0) * 100;
+    return `${channelColors[index]} ${start}% ${channelOffset}%`;
+  });
+  const health = [
+    { title: "Retención mensual", icon: Repeat2, score: current.retention, description: "Clientes que continúan de un mes al siguiente." },
+    { title: "Satisfacción del cliente", icon: Star, score: current.csat, description: "4 o 5 estrellas · " + number.format(current.responses) + " respuestas" },
+    { title: "Entregas a tiempo", icon: Timer, score: current.onTime, description: number.format(current.completed) + " entregas completadas" },
+  ];
+
   return <section className="analytics" aria-labelledby="analysis-title">
-    <div className="an-heading"><div><h2 id="analysis-title">Analítica y KPIs</h2><p>Datos de ejemplo · {dateLabel(rows[0].month)} – {dateLabel(rows[rows.length-1].month)} · USD</p></div>
+    <div className="an-heading"><div><h2 id="analysis-title">Analítica y KPIs</h2><p><CalendarDays size={14} aria-hidden />{dateLabel(rows[0].month)} – {dateLabel(rows[rows.length-1].month)} · USD · Datos de ejemplo</p></div>
       <div className="an-period" role="group" aria-label="Periodo de analítica">{[3,6,12].map(n => <button key={n} aria-pressed={period === n} onClick={() => setPeriod(n)}>{n} meses</button>)}</div>
     </div>
-    <div className="an-summary">{kpis.map(({title,icon:Icon,value,raw,prior,points,values}) => <article className="an-card an-kpi" key={title}>
+    <div className="an-summary">{kpis.map(({title,icon:Icon,value,raw,prior,points,values}) => <article className="an-kpi" key={title}>
       <h3><Icon size={15} aria-hidden />{title}</h3><strong>{value}</strong>
       <div className="an-kpi-foot"><div><Delta value={raw} prior={prior ?? null} points={points}/><span>vs. periodo anterior</span></div><Sparkline values={values}/></div>
     </article>)}</div>
     <div className="an-trends"><Evolution rows={rows}/>
-      <article className="an-card an-goal"><header><h3>Objetivo de ingresos</h3><Crosshair size={18} aria-hidden/></header>
-        <div className="an-ring" style={{backgroundImage:'conic-gradient(from 220deg, var(--brand-light) '+ Math.min(100,Math.max(0,(progress ?? 0)*100)) +'%, var(--inverse-border) 0)'}}><strong>{percent(progress)}</strong></div>
-        <div className="an-goal-foot"><span>Meta del periodo</span><b>{money.format(current.target)}</b></div>
+      <article className="an-card an-goal"><header><h3>Objetivo de ingresos</h3><Crosshair size={17} aria-hidden/></header>
+        <TargetGauge progress={progress}/>
+        <div className="an-goal-foot"><div><span>Ingresos</span><b>{money.format(current.revenue)}</b></div><div><span>Meta del periodo</span><b>{money.format(current.target)}</b></div></div>
       </article>
     </div>
     <div className="an-distribution">
-      <article className="an-card"><header><h3>Embudo de adquisición</h3></header><div className="an-funnel">{stages.map(([title,value]) => <div key={title}><div><span>{title}</span><b>{number.format(value)}</b></div><div className="an-track"><i style={{width:percentWidth(value,current.prospects)}}/></div></div>)}</div></article>
-      <article className="an-card"><header><h3>Canales de captación</h3></header><div className="an-channel-bar" aria-hidden>{current.channels.map(({label,value}) => <i key={label} style={{width:percentWidth(value,current.customers)}}/>)}</div>
-        <ul className="an-channels">{current.channels.map(({label,value}) => <li key={label}><span>{label}</span><b>{number.format(value)}</b><small>{percent(ratio(value,current.customers))}</small></li>)}</ul>
-      </article>
+      <article className="an-card"><header><h3>Embudo de adquisición</h3><Filter size={16} aria-hidden/></header><div className="an-funnel">{stages.map(([title,value]) => <div key={title}>
+        <div className="an-stage-head"><span>{title}</span><b>{number.format(value)}</b></div>
+        <div className="an-stage-meter"><div className="an-track"><i style={{width:percentWidth(value,current.prospects)}}/></div><small>{percent(ratio(value,current.prospects))}</small></div>
+      </div>)}</div></article>
+      <article className="an-card"><header><h3>Canales de captación</h3><PieChart size={16} aria-hidden/></header><div className="an-channel-body">
+        <div className="an-donut" style={{background: current.customers ? `conic-gradient(${channelStops.join(", ")})` : "var(--border)"}}>
+          <div><strong>{number.format(current.customers)}</strong><small>clientes</small></div>
+        </div>
+        <ul className="an-channels">{current.channels.map(({label,value}, index) => <li key={label}><i style={{background:channelColors[index]}}/><span>{label}</span><b>{number.format(value)}</b><small>{percent(ratio(value,current.customers))}</small></li>)}</ul>
+      </div></article>
     </div>
-    <div className="an-health">
-      <article className="an-card"><h3>Retención mensual</h3><strong>{percent(current.retention)}</strong><p>Clientes que continúan de un mes al siguiente.</p></article>
-      <article className="an-card"><h3>Satisfacción del cliente</h3><strong>{percent(current.csat)}</strong><p>Valoraciones de 4 o 5 estrellas · {number.format(current.responses)} respuestas</p></article>
-      <article className="an-card"><h3>Entregas a tiempo</h3><strong>{percent(current.onTime)}</strong><p>Sobre {number.format(current.completed)} entregas completadas.</p></article>
-    </div>
+    <div className="an-health">{health.map(({ title, icon: Icon, score, description }) => <article className="an-card" key={title}>
+      <h3><Icon size={16} aria-hidden />{title}</h3><strong>{percent(score)}</strong><div className="an-track" aria-hidden><i style={{width:percentWidth(score ?? 0,1)}}/></div><p>{description}</p>
+    </article>)}</div>
     <details className="an-card an-detail"><summary><Activity size={16} aria-hidden/>Más indicadores del periodo<ChevronDown size={16} aria-hidden/></summary>
       <dl>{detail.map(([label,value,description]) => <div key={label}><dt>{label}<small>{description}</small></dt><dd>{value}</dd></div>)}</dl>
     </details>
