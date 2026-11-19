@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { PageHeading } from "@/components/layout/page-heading";
-import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { ReputationScoreCard } from "@/features/reviews/components/reputation-score-card";
 import { StarMixCard } from "@/features/reviews/components/star-mix-card";
 import { ReviewMetrics } from "@/features/reviews/components/review-metrics";
@@ -13,7 +12,7 @@ export default function ReviewsPage() {
   const [selectedKpi, setSelectedKpi] = React.useState("new-reviews");
 
   return (
-    <DashboardShell>
+    <>
       <PageHeading title="Reseñas" description="Consulta las valoraciones y responde a comentarios de ejemplo." />
 
       {/* Fila 1: Puntuación de reputación + Distribución de estrellas */}
@@ -38,6 +37,6 @@ export default function ReviewsPage() {
           <NeedsReplyCard />
         </div>
       </div>
-    </DashboardShell>
+    </>
   );
 }

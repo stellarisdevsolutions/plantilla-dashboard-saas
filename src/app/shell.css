@@ -24,8 +24,21 @@
 .shell-kit { margin-top: auto; isolation: isolate; position: relative; overflow: hidden; border-radius: 14px; padding: 20px 12px; background: var(--inverse-soft); border: 1px solid var(--inverse-border); font-weight: 550; font-size: .8rem; }
 .shell-kit::before { content: ''; position: absolute; z-index: -1; inset: 0 0 0 30%; opacity: .28; background: var(--brand-light); mask: url('/contours.svg') center / cover; }
 .shell-kit svg:last-child { margin-left: auto; }
-.shell-rail[data-collapsed="true"] :is(.shell-brand,.shell-modules a,.shell-kit) { padding-inline: 0; justify-content: center; }
-.shell-rail[data-collapsed="true"] .shell-kit svg { margin: 0; }
+.shell-rail { overflow: hidden; }
+.shell-modules { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.shell-brand, .shell-modules a, .shell-kit { overflow: hidden; white-space: nowrap; }
+.shell-kit svg { flex: none; }
+.shell-rail[data-collapsed="true"] :is(.shell-brand strong, .shell-modules span, .shell-modules p, .shell-kit span, .shell-kit svg:last-child) { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .desktop-rail .shell-rail { transition: width 220ms ease-in-out; }
+  .shell-brand strong, .shell-modules span, .shell-modules p, .shell-kit span, .shell-kit svg:last-child { transition: opacity 150ms ease; }
+  .dashboard-main { animation: module-enter 220ms ease-out; }
+}
+@keyframes module-enter {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .dashboard-header {
   display: flex; justify-content: space-between; align-items: center; min-height: 68px;
   gap: 12px; padding: 10px clamp(10px,1.4vw,22px); border-radius: 18px;

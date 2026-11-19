@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { PageHeading } from "@/components/layout/page-heading";
-import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -68,7 +67,6 @@ export default function ComponentsShowcasePage() {
   };
 
   return (
-    <DashboardShell>
       <div className="module-page kit-page">
       <PageHeading title="Componentes UI y kit" description="Botones, controles, diálogos y notificaciones listos para reutilizar." actions={<Link href="/states" className={buttonVariants({ variant: "outline" })}>Ver estados del sistema</Link>} />
 
@@ -439,6 +437,5 @@ import { Skeleton } from "@/components/ui/skeleton";`}
         </CardContent>
       </Card>
     </div>
-    </DashboardShell>
   );
 }

@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import { PageHeading } from "@/components/layout/page-heading";
-import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -33,7 +32,6 @@ export default function StatesPage() {
   };
 
   return (
-    <DashboardShell>
       <div className="module-page">
       <PageHeading title="Estados del sistema" description="Ejemplos reutilizables para estados vacíos, errores y pérdida de conexión." />
 
@@ -268,6 +266,5 @@ export default function StatesPage() {
         </div>
       </Card>
     </div>
-    </DashboardShell>
   );
 }

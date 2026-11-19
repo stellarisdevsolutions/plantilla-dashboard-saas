@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { PageHeading } from "@/components/layout/page-heading";
-import { DashboardShell } from "@/components/layout/dashboard-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,7 +69,6 @@ export default function SettingsPage() {
   };
 
   return (
-    <DashboardShell>
       <div className="module-page">
       <PageHeading title="Formularios y ajustes" description="Ejemplos de edición de perfil, preferencias y credenciales." />
 
@@ -389,6 +387,5 @@ export default function SettingsPage() {
         }}>Restablecer</Button></div>
       </DialogContent></Dialog>
     </div>
-    </DashboardShell>
   );
 }

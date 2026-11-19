@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -8,6 +9,7 @@ import { Header } from "./header";
 import { Sidebar } from "./sidebar";
 
 export function DashboardShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -30,7 +32,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
       </div>
       <div className="dashboard-workspace">
         <Header collapsed={collapsed} onToggleSidebar={() => setCollapsed((value) => !value)} mobileNavigation={mobileNavigation} />
-        <main className="dashboard-main space-y-5">
+        <main key={pathname} className="dashboard-main space-y-5">
           {children}
         </main>
       </div>
