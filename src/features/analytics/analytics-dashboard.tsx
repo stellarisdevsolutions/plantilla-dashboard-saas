@@ -75,7 +75,7 @@ function TargetGauge({ progress }: { progress: number | null }) {
       {Array.from({ length: steps }, (_, index) => <line key={index}
         x1="18" x2="37" y1="113" y2="113"
         transform={`rotate(${index * 180 / (steps - 1)} 120 113)`}
-        stroke={index < filled ? "var(--on-ink)" : "var(--inverse-border)"}
+        stroke={index < filled ? "var(--brand-light)" : "var(--inverse-border)"}
         strokeWidth="4" strokeLinecap="round" />)}
     </svg>
     <div><strong>{percent(progress)}</strong><small>de la meta</small></div>

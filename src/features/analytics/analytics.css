@@ -30,7 +30,16 @@
   border: 1px solid var(--border); border-radius: var(--billing-card-radius);
   background: var(--billing-card-fill); box-shadow: var(--billing-card-shadow);
 }
-.an-kpi:first-child { background: linear-gradient(145deg, var(--card) 30%, var(--an-soft)); }
+.an-kpi:first-child {
+  position: relative; isolation: isolate; color: var(--on-ink);
+  background: linear-gradient(125deg,var(--brand-panel-deep),var(--brand-solid));
+}
+.an-kpi:first-child::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--on-ink); mask: url('/contours.svg') center / cover; opacity: .12;
+}
+.an-kpi:first-child :is(.an-spark, .an-kpi-foot span, .an-delta, h3 svg) { color: var(--on-ink); }
+.an-kpi:first-child :is(.an-delta, h3 svg) { background: var(--inverse-border); }
 .an-kpi h3 { justify-content: space-between; flex-direction: row-reverse; }
 .an-kpi:nth-child(2) h3 svg { color: var(--success); background: color-mix(in srgb, var(--success) 10%, transparent); }
 .an-kpi:nth-child(3) h3 svg { color: var(--info); background: color-mix(in srgb, var(--info) 9%, transparent); }
@@ -76,7 +85,7 @@
 .an-bars button[aria-pressed=true]::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; border-inline-start: 1px dashed var(--brand-light); }
 .an-bars small { position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%); font-size: .65rem; color: var(--muted-foreground); }
 .an-bars button[aria-pressed=true] small { color: var(--primary); font-weight: 650; }
-.an-goal { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; background: var(--billing-panel-fill); border-color: transparent; color: var(--on-ink); }
+.an-goal { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; background: linear-gradient(145deg,var(--ink-base),var(--surface-inverse) 65%,var(--brand-panel-deep) 170%); border-color: var(--inverse-border); color: var(--on-ink); }
 
 .an-goal header > svg { color: var(--on-ink); }
 .an-gauge { width: min(85%,226px); align-self: center; position: relative; }
