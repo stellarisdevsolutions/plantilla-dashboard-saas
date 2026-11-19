@@ -60,3 +60,7 @@
 .shell-drawer .shell-rail { width: 100%; }
 .shell-drawer [data-slot="dialog-close"] { color: var(--on-ink); }
 .shell-drawer [data-slot="dialog-close"]:hover { background: var(--inverse-soft); }
+
+@media (max-width: 580px) {
+  .shell-header-tools { flex: none; }
+}

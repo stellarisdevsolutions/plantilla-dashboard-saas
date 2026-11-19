@@ -25,10 +25,10 @@ Abre el puerto 3000 en tu navegador. Ejecuta `pnpm lint` para revisar el código
 | Módulo | Ruta | Incluye |
 | --- | --- | --- |
 | Analítica y KPIs | `/` | Facturación y analítica de ingresos, adquisición, clientes y operaciones. Ejemplos de proyectos en `/projects` y reseñas en `/reviews` |
-| Tablas y grids | `/table` | Tabla de usuarios con búsqueda, filtros, paginación y operaciones en memoria |
+| Tablas y grids | `/table` | Directorio en tabla o tarjetas con búsqueda, selección, paginación y edición en memoria |
 | Componentes UI y kit | `/components-showcase` | Controles, diálogos, notificaciones y estados del sistema en `/states` |
 | Formularios y ajustes | `/settings` | Perfil, notificaciones y credenciales de ejemplo |
-| Autenticación | `/login` | Formulario de inicio de sesión y acceso simulado |
+| Autenticación | `/login` | Inicio de sesión y recuperación de acceso simulados |
 
 El panel de analítica recibe una serie mensual ordenada de la más antigua a la más reciente. Reemplaza `demoMonths` en `src/features/analytics/data.ts` para conectar tus datos. Con 24 meses puedes comparar las tres ventanas (3, 6 y 12 meses) con el periodo anterior de la misma duración.
 

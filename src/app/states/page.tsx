@@ -34,6 +34,7 @@ export default function StatesPage() {
 
   return (
     <DashboardShell>
+      <div className="module-page">
       <PageHeading title="Estados del sistema" description="Ejemplos reutilizables para estados vacíos, errores y pérdida de conexión." />
 
       {/* Selector de Pestañas de Estados */}
@@ -266,6 +267,7 @@ export default function StatesPage() {
           </div>
         </div>
       </Card>
+    </div>
     </DashboardShell>
   );
 }

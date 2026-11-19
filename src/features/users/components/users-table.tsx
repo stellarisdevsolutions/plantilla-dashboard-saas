@@ -67,6 +67,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 export function UsersTable() {
   const [data, setData] = React.useState<ClientAccount[]>(CLIENT_ACCOUNTS);
+  const [pendingDeletion, setPendingDeletion] = React.useState<string[]>([]);
+  const [view, setView] = React.useState<"table" | "grid">("table");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = React.useState("");
@@ -249,7 +251,7 @@ export function UsersTable() {
                   Copiar ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-destructive" onClick={() => deleteUsers([item.id])}>
+                <DropdownMenuItem className="text-destructive" onClick={() => setPendingDeletion([item.id])}>
                   Eliminar
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -292,10 +294,10 @@ export function UsersTable() {
       <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 gap-3">
         <div>
           <CardTitle className="text-base font-semibold tracking-tight">
-            Tabla de Datos Avanzada (TanStack Table)
+            Directorio de usuarios
           </CardTitle>
           <CardDescription className="text-xs text-muted-foreground mt-0.5">
-            Ordenamiento multicolumna, selección de filas, paginación y formularios validados con Zod
+            {data.length} cuentas · {data.filter(user => user.status === "Activo").length} activas
           </CardDescription>
         </div>
         <div className="flex items-center gap-2">
@@ -303,7 +305,7 @@ export function UsersTable() {
             <Button
               variant="destructive"
               size="sm"
-              onClick={() => deleteUsers(Object.keys(rowSelection))}
+              onClick={() => setPendingDeletion(Object.keys(rowSelection))}
               className="h-8 gap-1 text-xs cursor-pointer"
             >
               <Trash2 className="h-3.5 w-3.5" />
@@ -377,7 +379,7 @@ export function UsersTable() {
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Search */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="relative w-full sm:w-72">
             <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" />
             <Input
@@ -388,13 +390,26 @@ export function UsersTable() {
               className="h-8 pl-8 text-xs bg-muted/30 border-border/70"
             />
           </div>
+          <div className="module-view-toggle" role="group" aria-label="Vista del directorio">
+            <button aria-pressed={view === "table"} onClick={() => setView("table")}>Tabla</button>
+            <button aria-pressed={view === "grid"} onClick={() => setView("grid")}>Tarjetas</button>
+          </div>
           <span className="text-[11px] text-muted-foreground hidden sm:block">
             {table.getFilteredRowModel().rows.length} registros encontrados
           </span>
         </div>
 
         {/* Table View */}
-        <div className="rounded-lg border border-border/70 overflow-hidden">
+        {view === "grid" ? <div className="directory-grid">
+          {table.getRowModel().rows.map(row => <article key={row.id} className="directory-card">
+            <div className="flex items-center justify-between">
+              {row.getVisibleCells().filter(cell => ["select","actions"].includes(cell.column.id)).map(cell => <div key={cell.id}>{flexRender(cell.column.columnDef.cell,cell.getContext())}</div>)}
+            </div>
+            <strong>{row.original.name}</strong><small>{row.original.email}</small>
+            <div className="flex items-center justify-between gap-2"><span>{row.original.role}</span><Badge variant="secondary">{row.original.status}</Badge></div>
+          </article>)}
+          {table.getRowModel().rows.length === 0 && <p>No se encontraron resultados para la búsqueda.</p>}
+        </div> : <div className="rounded-lg border border-border/70 overflow-hidden">
           <Table>
             <TableHeader className="bg-muted/40">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -433,7 +448,7 @@ export function UsersTable() {
               )}
             </TableBody>
           </Table>
-        </div>
+        </div>}
 
         {/* Pagination Controls */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
@@ -466,6 +481,12 @@ export function UsersTable() {
           </div>
         </div>
       </CardContent>
+      <Dialog open={pendingDeletion.length > 0} onOpenChange={open => { if (!open) setPendingDeletion([]); }}>
+        <DialogContent><DialogTitle>Confirmar eliminación</DialogTitle><DialogDescription>
+          Se eliminarán las cuentas seleccionadas ({pendingDeletion.length}) del directorio de demostración.
+        </DialogDescription><DialogFooter><Button variant="outline" onClick={() => setPendingDeletion([])}>Cancelar</Button>
+          <Button variant="destructive" onClick={() => {deleteUsers(pendingDeletion); setPendingDeletion([]);}}>Confirmar eliminación</Button></DialogFooter></DialogContent>
+      </Dialog>
     </Card>
   );
 }

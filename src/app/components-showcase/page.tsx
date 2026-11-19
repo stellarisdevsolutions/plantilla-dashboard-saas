@@ -62,19 +62,20 @@ export default function ComponentsShowcasePage() {
     });
   };
 
-  const copyCode = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyCode = async (text: string) => {
+    try { await navigator.clipboard.writeText(text); } catch { toast.error("No se pudo copiar el código"); return; }
     toast.success("Código copiado al portapapeles");
   };
 
   return (
     <DashboardShell>
+      <div className="module-page kit-page">
       <PageHeading title="Componentes UI y kit" description="Botones, controles, diálogos y notificaciones listos para reutilizar." actions={<Link href="/states" className={buttonVariants({ variant: "outline" })}>Ver estados del sistema</Link>} />
 
       {/* 1. INPUTS Y FORMULARIOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Inputs & Controles de Formulario</CardTitle>
+          <CardTitle className="text-base font-semibold">Campos y controles</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Variantes con iconos, prefijos, estados deshabilitados y áreas de texto
           </CardDescription>
@@ -143,7 +144,7 @@ export default function ComponentsShowcasePage() {
       {/* 2. BOTONES Y ESTADOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Botones & Acciones</CardTitle>
+          <CardTitle className="text-base font-semibold">Botones y acciones</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Todos los estilos integrados con la paleta de colores activa
           </CardDescription>
@@ -194,7 +195,7 @@ export default function ComponentsShowcasePage() {
       {/* 3. BADGES Y ESTADOS DE SEMÁFORO */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Badges & Estados de Sistema</CardTitle>
+          <CardTitle className="text-base font-semibold">Etiquetas de estado</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Etiquetas visuales para tablas, tarjetas de crédito y feeds
           </CardDescription>
@@ -230,7 +231,7 @@ export default function ComponentsShowcasePage() {
       {/* 4. TOASTS Y NOTIFICACIONES SONNER */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Notificaciones Flotantes (Sonner)</CardTitle>
+          <CardTitle className="text-base font-semibold">Notificaciones</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Feedback instantáneo al usuario para mutaciones y operaciones
           </CardDescription>
@@ -276,7 +277,7 @@ export default function ComponentsShowcasePage() {
       {/* 5. MODALES Y DIÁLOGOS INTERACTIVOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Modales & Diálogos (Dialog)</CardTitle>
+          <CardTitle className="text-base font-semibold">Diálogos</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Ventanas modales para edición, creación y confirmación de datos con validación
           </CardDescription>
@@ -299,31 +300,29 @@ export default function ComponentsShowcasePage() {
                     Introduce los datos para el nuevo elemento del dashboard.
                   </DialogDescription>
                 </DialogHeader>
+                <form onSubmit={event => {event.preventDefault(); setFormDialogOpen(false); toast.success("Registro de ejemplo validado");}}>
                 <div className="space-y-3 py-3">
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium">Nombre del Proyecto</Label>
-                    <Input placeholder="Ej. Campaña Q4 2026" className="text-xs h-8" />
+                    <Label htmlFor="kit-project" className="text-xs font-medium">Nombre del Proyecto</Label>
+                    <Input id="kit-project" required placeholder="Ej. Campaña Q4 2026" className="text-xs h-8" />
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-xs font-medium">Responsable</Label>
-                    <Input placeholder="Ej. Maria Lopez" className="text-xs h-8" />
+                    <Label htmlFor="kit-owner" className="text-xs font-medium">Responsable</Label>
+                    <Input id="kit-owner" required placeholder="Ej. Maria Lopez" className="text-xs h-8" />
                   </div>
                 </div>
                 <DialogFooter className="flex justify-end gap-2 pt-2">
-                  <Button variant="outline" size="sm" onClick={() => setFormDialogOpen(false)} className="text-xs cursor-pointer">
+                  <Button type="button" variant="outline" size="sm" onClick={() => setFormDialogOpen(false)} className="text-xs cursor-pointer">
                     Cancelar
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => {
-                      setFormDialogOpen(false);
-                      toast.success("Registro creado", { description: "Se ha añadido al sistema correctamente." });
-                    }}
+                    type="submit"
                     className="bg-primary text-primary-foreground text-xs cursor-pointer"
                   >
                     Guardar Registro
                   </Button>
-                </DialogFooter>
+                </DialogFooter></form>
               </DialogContent>
             </Dialog>
 
@@ -369,7 +368,7 @@ export default function ComponentsShowcasePage() {
       {/* 6. ESTADOS DE CARGA (SKELETONS) */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">Estados de Carga (Skeletons)</CardTitle>
+          <CardTitle className="text-base font-semibold">Estados de carga</CardTitle>
           <CardDescription className="text-xs text-muted-foreground">
             Marcadores de posición animados mientras el backend o la API responden
           </CardDescription>
@@ -439,6 +438,7 @@ import { Skeleton } from "@/components/ui/skeleton";`}
           </div>
         </CardContent>
       </Card>
+    </div>
     </DashboardShell>
   );
 }
