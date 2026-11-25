@@ -4,7 +4,7 @@ import { ArrowUpRight, Component, Layers3 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { dashboardConfig } from "@/config/dashboard";
-import { navigation } from "@/config/navigation";
+import { navigationGroups } from "@/config/navigation";
 
 export function Sidebar({ collapsed = false, onNavigate }: {
   collapsed?: boolean;
@@ -18,14 +18,17 @@ export function Sidebar({ collapsed = false, onNavigate }: {
         <strong>{dashboardConfig.name}</strong>
       </Link>
       <nav aria-label="Navegación principal" className="shell-modules">
-        <p aria-hidden={collapsed}>Módulos</p>
-        {navigation.map(item => {
-          const { title, href, icon: Icon } = item;
-          return <Link key={href} href={href} onClick={onNavigate} aria-label={title} title={collapsed ? title : undefined}
-            aria-current={pathname === href ? "page" : undefined}>
-            <Icon size={17} aria-hidden /><span>{title}</span>
-          </Link>;
-        })}
+        {navigationGroups.map(group => (
+          <div key={group.label} className="shell-group">
+            <p aria-hidden={collapsed}>{group.label}</p>
+            {group.items.map(({ title, href, icon: Icon }) => (
+              <Link key={href} href={href} onClick={onNavigate} aria-label={title} title={collapsed ? title : undefined}
+                aria-current={pathname === href ? "page" : undefined}>
+                <Icon size={17} aria-hidden /><span>{title}</span>
+              </Link>
+            ))}
+          </div>
+        ))}
       </nav>
       <Link href="/components-showcase" onClick={onNavigate} className="shell-kit" aria-label="Abrir kit de interfaz" title={collapsed ? "Kit de interfaz" : undefined}>
         <Component size={20} aria-hidden /><span>Kit de interfaz</span><ArrowUpRight size={15} aria-hidden />

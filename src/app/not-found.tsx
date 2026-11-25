@@ -14,7 +14,7 @@ export default function NotFound() {
           <p className="mt-2 text-sm text-muted-foreground">Comprueba la dirección o vuelve al resumen del panel.</p>
         </div>
         <Link href="/" className={buttonVariants()}>
-          <Home aria-hidden /> Volver a analítica
+          <Home aria-hidden /> Volver al resumen
         </Link>
       </div>
     </main>

@@ -11,6 +11,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import {
   Sparkles,
   Search,
@@ -24,6 +43,8 @@ import {
   Loader2,
   Copy,
   Terminal,
+  CalendarDays,
+  PanelRightOpen,
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -36,11 +57,21 @@ import {
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 
+const datePresets = [
+  "Hoy",
+  "Últimos 7 días",
+  "Últimos 30 días",
+  "Trimestre actual",
+];
+
 export default function ComponentsShowcasePage() {
   const [loadingButton, setLoadingButton] = React.useState(false);
   const [switch1, setSwitch1] = React.useState(true);
   const [formDialogOpen, setFormDialogOpen] = React.useState(false);
   const [confirmDialogOpen, setConfirmDialogOpen] = React.useState(false);
+  const [sheetOpen, setSheetOpen] = React.useState(false);
+  const [dateRange, setDateRange] = React.useState("Últimos 30 días");
+  const [popoverOpen, setPopoverOpen] = React.useState(false);
 
   const simulateLoading = () => {
     setLoadingButton(true);
@@ -68,7 +99,7 @@ export default function ComponentsShowcasePage() {
 
   return (
       <div className="module-page kit-page">
-      <PageHeading title="Componentes UI y kit" description="Botones, controles, diálogos y notificaciones listos para reutilizar." actions={<Link href="/states" className={buttonVariants({ variant: "outline" })}>Ver estados del sistema</Link>} />
+      <PageHeading title="Componentes UI y kit" description="Botones, controles, diálogos, drawers, alertas y notificaciones listos para reutilizar." actions={<Link href="/states" className={buttonVariants({ variant: "outline" })}>Ver estados del sistema</Link>} />
 
       {/* 1. INPUTS Y FORMULARIOS */}
       <Card className="border-border/80 bg-card shadow-xs">
@@ -226,7 +257,153 @@ export default function ComponentsShowcasePage() {
         </CardContent>
       </Card>
 
-      {/* 4. TOASTS Y NOTIFICACIONES SONNER */}
+      {/* 4. ALERTAS Y CALLOUTS */}
+      <Card className="border-border/80 bg-card shadow-xs">
+        <CardHeader>
+          <CardTitle className="text-base font-semibold">Alertas y callouts</CardTitle>
+          <CardDescription className="text-xs text-muted-foreground">
+            Mensajes persistentes dentro de formularios y cabeceras de módulos
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-2.5">
+          <Alert variant="info">
+            <Info />
+            <AlertTitle>Actualización disponible</AlertTitle>
+            <AlertDescription>Sincroniza los tokens del sistema antes de exportar la vista.</AlertDescription>
+          </Alert>
+          <Alert variant="success">
+            <CheckCircle2 />
+            <AlertTitle>Configuración verificada</AlertTitle>
+            <AlertDescription>Todas las validaciones visuales pasaron correctamente.</AlertDescription>
+          </Alert>
+          <Alert variant="warning">
+            <AlertTriangle />
+            <AlertTitle>Modo solo lectura</AlertTitle>
+            <AlertDescription>Los usuarios con rol Lectura no pueden modificar registros.</AlertDescription>
+          </Alert>
+          <Alert variant="destructive">
+            <XCircle />
+            <AlertTitle>Acción destructiva</AlertTitle>
+            <AlertDescription>Eliminar cuentas del directorio es irreversible en producción.</AlertDescription>
+          </Alert>
+        </CardContent>
+      </Card>
+
+      {/* 5. DRAWER LATERAL, POPOVER DE FECHAS Y BREADCRUMB */}
+      <Card className="border-border/80 bg-card shadow-xs">
+        <CardHeader>
+          <CardTitle className="text-base font-semibold">Drawer, Popover y Breadcrumb</CardTitle>
+          <CardDescription className="text-xs text-muted-foreground">
+            Paneles deslizantes, selectores flotantes de rango y migas de pan
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <div className="space-y-2">
+            <Label className="text-xs font-medium text-muted-foreground">Migas de pan (Breadcrumb)</Label>
+            <div className="rounded-lg border border-border/70 bg-muted/20 px-3 py-2">
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/">Inicio</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink href="/table">Gestión</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Detalle de cuenta</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Sheet / Drawer lateral */}
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger
+                render={
+                  <Button size="sm" variant="outline" className="gap-1.5 text-xs cursor-pointer" />
+                }
+              >
+                <PanelRightOpen className="size-3.5" aria-hidden />
+                Abrir Drawer lateral
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle>Resumen del registro</SheetTitle>
+                  <SheetDescription>
+                    Ejemplo de panel lateral deslizable (Sheet) para vistas Master-Detail.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="flex-1 space-y-3 p-5 text-xs">
+                  <div className="rounded-xl border border-border/70 bg-muted/30 p-3">
+                    <span className="text-muted-foreground block">Estado actual</span>
+                    <strong className="mt-1 block text-sm">Activo · Plan Pro</strong>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Ideal para inspeccionar detalles de usuarios, facturas o configuraciones sin perder el contexto de la tabla.
+                  </p>
+                </div>
+                <SheetFooter>
+                  <Button size="sm" variant="outline" onClick={() => setSheetOpen(false)}>
+                    Cerrar
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      setSheetOpen(false);
+                      toast.success("Cambios aplicados desde el Drawer");
+                    }}
+                  >
+                    Aplicar acción
+                  </Button>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
+
+            {/* Popover Selector de Fechas */}
+            <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+              <PopoverTrigger
+                render={
+                  <Button size="sm" variant="outline" className="gap-1.5 text-xs cursor-pointer" />
+                }
+              >
+                <CalendarDays className="size-3.5" aria-hidden />
+                <span>Periodo: {dateRange}</span>
+              </PopoverTrigger>
+              <PopoverContent align="start" className="w-60 space-y-2 p-2.5">
+                <p className="px-1 text-[11px] font-semibold text-muted-foreground">
+                  Rango rápido de demostración
+                </p>
+                <div className="grid gap-1">
+                  {datePresets.map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => {
+                        setDateRange(preset);
+                        setPopoverOpen(false);
+                        toast.info(`Filtro aplicado: ${preset}`);
+                      }}
+                      className={`rounded-md px-2.5 py-1.5 text-left text-xs transition-colors cursor-pointer ${
+                        dateRange === preset
+                          ? "bg-primary text-primary-foreground font-medium"
+                          : "hover:bg-muted text-foreground"
+                      }`}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 6. TOASTS Y NOTIFICACIONES SONNER */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
           <CardTitle className="text-base font-semibold">Notificaciones</CardTitle>
@@ -272,7 +449,7 @@ export default function ComponentsShowcasePage() {
         </CardContent>
       </Card>
 
-      {/* 5. MODALES Y DIÁLOGOS INTERACTIVOS */}
+      {/* 7. MODALES Y DIÁLOGOS INTERACTIVOS */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
           <CardTitle className="text-base font-semibold">Diálogos</CardTitle>
@@ -363,7 +540,7 @@ export default function ComponentsShowcasePage() {
         </CardContent>
       </Card>
 
-      {/* 6. ESTADOS DE CARGA (SKELETONS) */}
+      {/* 8. ESTADOS DE CARGA (SKELETONS) */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
           <CardTitle className="text-base font-semibold">Estados de carga</CardTitle>
@@ -396,7 +573,7 @@ export default function ComponentsShowcasePage() {
         </CardContent>
       </Card>
 
-      {/* 7. CÓDIGO RÁPIDO PARA REUTILIZAR */}
+      {/* 9. CÓDIGO RÁPIDO PARA REUTILIZAR */}
       <Card className="border-border/80 bg-card shadow-xs">
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -407,7 +584,11 @@ export default function ComponentsShowcasePage() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => copyCode("import { Button } from '@/components/ui/button';\nimport { Input } from '@/components/ui/input';")}
+              onClick={() =>
+                copyCode(
+                  'import { Button } from "@/components/ui/button";\nimport { Alert } from "@/components/ui/alert";\nimport { Sheet, SheetContent } from "@/components/ui/sheet";\nimport { Popover, PopoverContent } from "@/components/ui/popover";\nimport { Breadcrumb } from "@/components/ui/breadcrumb";'
+                )
+              }
               className="h-7 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
             >
               <Copy className="h-3.5 w-3.5 mr-1" />
@@ -421,17 +602,11 @@ export default function ComponentsShowcasePage() {
               {`// Ejemplo de importación directa en cualquier página o componente:
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";`}
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem } from "@/components/ui/breadcrumb";
+import { toast } from "sonner";`}
             </code>
           </div>
         </CardContent>

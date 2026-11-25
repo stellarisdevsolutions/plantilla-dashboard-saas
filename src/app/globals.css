@@ -36,6 +36,7 @@
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
   /* Sistema base 60 / 30 / 10 */
   --color-ring: var(--ring);
@@ -148,6 +149,7 @@
   --info: #2563eb;
   --info-foreground: #ffffff;
   --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
 
   /* Gráficas */
   --chart-1: #059669;
@@ -161,6 +163,8 @@
 
 .dark {
   color-scheme: dark;
+  --canvas: color-mix(in srgb, var(--background) 82%, var(--card));
+  --billing-card-shadow: 0 3px 12px color-mix(in srgb, #000000 28%, transparent);
 
   /* 60% Dominante (Modo Oscuro neutro y limpio) */
   --background: #090a0d;
@@ -203,6 +207,7 @@
   --info: #60a5fa;
   --info-foreground: #090a0d;
   --destructive: #f87171;
+  --destructive-foreground: #090a0d;
 
   /* Gráficas */
   --chart-1: #10b981;
@@ -360,22 +365,6 @@
   --chart-3: #ded8d2;
   --chart-4: #85807b;
   --chart-5: #3d3631;
-}
-
-.category-meter::-webkit-meter-bar {
-  background: var(--muted);
-  border: 0;
-  border-radius: 999px;
-}
-
-.category-meter::-webkit-meter-optimum-value {
-  background: var(--chart-1);
-  border-radius: 999px;
-}
-
-.category-meter::-moz-meter-bar {
-  background: var(--chart-1);
-  border-radius: 999px;
 }
 
 /* Coral */
@@ -662,4 +651,20 @@
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
     min-height: 100vh;
   }
+}
+
+.category-meter::-webkit-meter-bar {
+  background: var(--muted);
+  border: 0;
+  border-radius: 999px;
+}
+
+.category-meter::-webkit-meter-optimum-value {
+  background: var(--chart-1);
+  border-radius: 999px;
+}
+
+.category-meter::-moz-meter-bar {
+  background: var(--chart-1);
+  border-radius: 999px;
 }

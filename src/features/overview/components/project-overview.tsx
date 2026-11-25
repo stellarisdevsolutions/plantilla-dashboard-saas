@@ -44,7 +44,7 @@ export function ProjectOverview() {
   return (
     <div className="project-overview">
       <div className="overview-title">
-        <div><h1>Analítica y KPIs</h1><p>Organiza tus proyectos y sigue el avance de tu equipo.</p></div>
+        <div><h1>Resumen general</h1><p>Organiza tus proyectos y sigue el avance de tu equipo.</p></div>
         <div className="project-actions">
           <button className="project-pill primary-pill" onClick={() => show("new")}><Plus size={15} /> Añadir proyecto</button>
           <button className="project-pill" onClick={() => show("import")}>Importar lista</button>

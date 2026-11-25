@@ -1,19 +1,41 @@
-import { Activity, BarChart3, FolderKanban, MessageSquare, LayoutGrid, LogIn, PanelsTopLeft, Settings2, type LucideIcon } from "lucide-react";
+import { Activity, BarChart3, LayoutDashboard, LayoutGrid, MessageSquare, PanelsTopLeft, Settings2, type LucideIcon } from "lucide-react";
 
-interface NavigationItem {
+export interface NavigationItem {
   title: string;
-  pageTitle?: string;
   href: string;
   icon: LucideIcon;
 }
 
-export const navigation: NavigationItem[] = [
-  { title: "Analítica y KPIs", pageTitle: "Facturas", href: "/", icon: BarChart3 },
-  { title: "Proyectos", href: "/projects", icon: FolderKanban },
-  { title: "Analítica de reseñas", href: "/reviews", icon: MessageSquare },
-  { title: "Tablas y grids", href: "/table", icon: LayoutGrid },
-  { title: "Componentes UI y kit", href: "/components-showcase", icon: PanelsTopLeft },
-  { title: "Estados del sistema", href: "/states", icon: Activity },
-  { title: "Formularios y ajustes", href: "/settings", icon: Settings2 },
-  { title: "Autenticación", href: "/login", icon: LogIn },
+export interface NavigationGroup {
+  label: string;
+  items: NavigationItem[];
+}
+
+export const navigationGroups: NavigationGroup[] = [
+  {
+    label: "General",
+    items: [
+      { title: "Resumen general", href: "/", icon: LayoutDashboard },
+      { title: "Facturación y analítica", href: "/analytics", icon: BarChart3 },
+      { title: "Reseñas", href: "/reviews", icon: MessageSquare },
+    ],
+  },
+  {
+    label: "Gestión",
+    items: [{ title: "Tablas y usuarios", href: "/table", icon: LayoutGrid }],
+  },
+  {
+    label: "Interfaz",
+    items: [
+      { title: "Componentes UI", href: "/components-showcase", icon: PanelsTopLeft },
+      { title: "Estados del sistema", href: "/states", icon: Activity },
+    ],
+  },
+  {
+    label: "Cuenta",
+    items: [{ title: "Ajustes", href: "/settings", icon: Settings2 }],
+  },
 ];
+
+/** Lista plana para el buscador y el título del header. */
+export const navigation: NavigationItem[] = navigationGroups.flatMap((group) => group.items);

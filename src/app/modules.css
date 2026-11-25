@@ -51,7 +51,6 @@
 .module-login form > button[type=submit] {background:var(--brand-solid);color:var(--on-ink);}
 @media(prefers-reduced-motion:no-preference) {
   .directory-grid,.module-page [data-slot=tabs-content] {animation:module-enter .18s ease-out;}
-  @keyframes module-enter {from {opacity:.3;transform:translateY(3px);}to {opacity:1;transform:translateY(0);}}
 }
 @media(max-width:640px) {
   .module-page > :first-child {align-items:flex-start;}

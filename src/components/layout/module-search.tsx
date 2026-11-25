@@ -18,7 +18,7 @@ export function ModuleSearch() {
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const term = normalize(query.trim());
-  const matches = navigation.filter(({ title, pageTitle }) => normalize([title, pageTitle].join(" ")).includes(term));
+  const matches = navigation.filter(({ title }) => normalize(title).includes(term));
 
   useEffect(() => {
     function handleShortcut(event: KeyboardEvent) {

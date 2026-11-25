@@ -2,6 +2,8 @@
 
 import { useId, useState } from "react";
 import { Activity, ArrowDownRight, ArrowUpRight, ChartNoAxesCombined, ChevronDown, CircleDollarSign, CalendarDays, Crosshair, Filter, PieChart, Repeat2, Star, Timer, MousePointer2, UsersRound } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { acquired, ratio, summarize, type MonthlyMetrics } from "./data";
 
 const number = new Intl.NumberFormat("es-ES", {useGrouping: "always", maximumFractionDigits: 0});
@@ -83,12 +85,61 @@ function TargetGauge({ progress }: { progress: number | null }) {
 }
 
 export function AnalyticsDashboard({ months }: { months: MonthlyMetrics[] }) {
+  const defaultTo = months[months.length - 1]?.month ?? "";
+  const defaultFrom = months[Math.max(0, months.length - 6)]?.month ?? "";
+
+  const [rangeMode, setRangeMode] = useState<"preset" | "custom">("preset");
   const [period, setPeriod] = useState(6);
-  const rows = months.slice(-period);
-  if (!rows.length) return <section className="analytics"><h2>Analítica y KPIs</h2><p>Aún no hay datos para este periodo.</p></section>;
+  const [fromMonth, setFromMonth] = useState(defaultFrom);
+  const [toMonth, setToMonth] = useState(defaultTo);
+  const [draftFrom, setDraftFrom] = useState(defaultFrom);
+  const [draftTo, setDraftTo] = useState(defaultTo);
+  const [rangeOpen, setRangeOpen] = useState(false);
+
+  const rows =
+    rangeMode === "preset"
+      ? months.slice(-period)
+      : months.filter((row) => row.month >= fromMonth && row.month <= toMonth);
+
+  if (!rows.length) {
+    return (
+      <section className="analytics">
+        <h2>Analítica y KPIs</h2>
+        <p>Aún no hay datos para este periodo.</p>
+      </section>
+    );
+  }
+
+  const startIndex = months.findIndex((row) => row.month === rows[0].month);
+  const previousRows =
+    startIndex >= rows.length ? months.slice(startIndex - rows.length, startIndex) : [];
+
+  function selectPreset(count: number) {
+    setPeriod(count);
+    setRangeMode("preset");
+    const slice = months.slice(-count);
+    if (slice.length) {
+      setFromMonth(slice[0].month);
+      setToMonth(slice[slice.length - 1].month);
+      setDraftFrom(slice[0].month);
+      setDraftTo(slice[slice.length - 1].month);
+    }
+    setRangeOpen(false);
+  }
+
+  function applyCustomRange() {
+    const start = draftFrom <= draftTo ? draftFrom : draftTo;
+    const end = draftFrom <= draftTo ? draftTo : draftFrom;
+    setFromMonth(start);
+    setToMonth(end);
+    setDraftFrom(start);
+    setDraftTo(end);
+    setRangeMode("custom");
+    setRangeOpen(false);
+  }
+
   const current = summarize(rows);
-  const previousRows = months.slice(-period * 2, -period);
-  const previous = previousRows.length === period ? summarize(previousRows) : null;
+  const previous = previousRows.length === rows.length ? summarize(previousRows) : null;
   const progress = ratio(current.revenue, current.target);
   const kpis = [
     { title: "Ingresos", icon: CircleDollarSign, value: money.format(current.revenue), raw: current.revenue, prior: previous?.revenue, values: rows.map(r => r.revenue) },
@@ -119,8 +170,112 @@ export function AnalyticsDashboard({ months }: { months: MonthlyMetrics[] }) {
   ];
 
   return <section className="analytics" aria-labelledby="analysis-title">
-    <div className="an-heading"><div><h2 id="analysis-title">Analítica y KPIs</h2><p><CalendarDays size={14} aria-hidden />{dateLabel(rows[0].month)} – {dateLabel(rows[rows.length-1].month)} · USD · Datos de ejemplo</p></div>
-      <div className="an-period" role="group" aria-label="Periodo de analítica">{[3,6,12].map(n => <button key={n} aria-pressed={period === n} onClick={() => setPeriod(n)}>{n} meses</button>)}</div>
+    <div className="an-heading"><div><h2 id="analysis-title">Analítica y KPIs</h2><p><CalendarDays size={14} aria-hidden />{dateLabel(rows[0].month)} – {dateLabel(rows[rows.length-1].month)} · {rows.length} meses · USD · Datos de ejemplo</p></div>
+      <div className="an-period" role="group" aria-label="Periodo de analítica">
+        {[3,6,12].map(n => <button key={n} aria-pressed={rangeMode === "preset" && period === n} onClick={() => selectPreset(n)}>{n} meses</button>)}
+        <Popover open={rangeOpen} onOpenChange={(nextOpen) => {
+          if (nextOpen) {
+            setDraftFrom(rows[0].month);
+            setDraftTo(rows[rows.length - 1].month);
+          }
+          setRangeOpen(nextOpen);
+        }}>
+          <PopoverTrigger
+            aria-pressed={rangeMode === "custom"}
+            className="inline-flex items-center gap-1.5"
+          >
+            <CalendarDays size={13} aria-hidden />
+            <span>Rango</span>
+          </PopoverTrigger>
+          <PopoverContent align="end" className="w-72 space-y-3 p-3.5">
+            <div className="space-y-0.5">
+              <p className="text-xs font-semibold text-foreground">Rango de meses</p>
+              <p className="text-[11px] text-muted-foreground">Elige un tramo personalizado o un atajo.</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-1.5">
+              {[
+                { label: "Últimos 3 m", count: 3 },
+                { label: "Últimos 6 m", count: 6 },
+                { label: "Último año", count: 12 },
+                { label: "Todo (24 m)", count: months.length },
+              ].map((shortcut) => (
+                <Button
+                  key={shortcut.label}
+                  type="button"
+                  size="xs"
+                  variant="outline"
+                  onClick={() => selectPreset(shortcut.count)}
+                  className="justify-start text-[11px] cursor-pointer"
+                >
+                  {shortcut.label}
+                </Button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 border-t border-border pt-2.5">
+              <label className="space-y-1 text-[11px] font-medium text-muted-foreground">
+                Desde
+                <select
+                  aria-label="Mes inicial"
+                  value={draftFrom}
+                  onChange={(e) => {
+                    const nextFrom = e.target.value;
+                    setDraftFrom(nextFrom);
+                    if (nextFrom > draftTo) setDraftTo(nextFrom);
+                  }}
+                  className="h-8 w-full rounded-lg border border-border bg-card px-2 text-xs text-foreground"
+                >
+                  {months.map((m) => (
+                    <option key={m.month} value={m.month}>
+                      {dateLabel(m.month)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="space-y-1 text-[11px] font-medium text-muted-foreground">
+                Hasta
+                <select
+                  aria-label="Mes final"
+                  value={draftTo}
+                  onChange={(e) => {
+                    const nextTo = e.target.value;
+                    setDraftTo(nextTo);
+                    if (nextTo < draftFrom) setDraftFrom(nextTo);
+                  }}
+                  className="h-8 w-full rounded-lg border border-border bg-card px-2 text-xs text-foreground"
+                >
+                  {months.map((m) => (
+                    <option key={m.month} value={m.month}>
+                      {dateLabel(m.month)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <div className="flex justify-end gap-2">
+              <Button
+                type="button"
+                size="xs"
+                variant="ghost"
+                onClick={() => setRangeOpen(false)}
+                className="cursor-pointer"
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                size="xs"
+                onClick={applyCustomRange}
+                className="cursor-pointer"
+              >
+                Aplicar rango
+              </Button>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </div>
     </div>
     <div className="an-summary">{kpis.map(({title,icon:Icon,value,raw,prior,points,values}) => <article className="an-kpi" key={title}>
       <h3><Icon size={15} aria-hidden />{title}</h3><strong>{value}</strong>
